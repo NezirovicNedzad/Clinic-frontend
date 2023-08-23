@@ -28,6 +28,10 @@ label{
 
 }
 
+button{
+    border: none;
+    background: local;
+}
 nav ul{
 
     float: right;
@@ -41,7 +45,7 @@ nav ul li{
     margin:0 5px;
 }
 
-nav ul li a{
+nav ul li button{
     color:white;font-size: 17px;
 font-size: 17px;
 padding: 7px 13px;
@@ -49,7 +53,7 @@ border-radius: 3px;
 text-transform: uppercase;
 }
 
-a.active,a:hover{
+button.active,button:hover{
 
     background:#1b9bff;
     transition: .5s;
@@ -84,7 +88,7 @@ label.checkbtn {
         font-size: 30px;
         padding-left: 50px;
     }
-    nav ul li a{
+    nav ul li button{
         font-size:16px;
     }
 }
@@ -115,11 +119,11 @@ label.checkbtn {
         line-height: 30px;
     }
 
-    nav ul li a{
+    nav ul li button{
         font-size: 20px;
     }
 
-    a:hover,a.active{
+    button:hover,button.active{
         background: none;
         color:#0082e6;
     }

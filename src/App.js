@@ -12,34 +12,18 @@ import {
 import HomePage from './Pages/HomePage';
 import OdeljenjaPage from './Pages/OdeljenjaPage';
 import NavBar from './Components/NavBar';
-
+import { useNavigate } from 'react-router-dom';
+import Details from './Pages/Details';
+import Create from './Pages/Create';
 function App() {
 
 
 
-  const [odeljenja,setOdeljenja]=useState([]);
- const [redniBr,setRedniBr]=useState(1);
 
 
 
-useEffect(()=>{
-
-  const fetchPosts=async () =>{
-    const {data}=await axios.get("http://localhost:5000/api/Odeljenje")
-  
-  setOdeljenja(data);
-  
-  
-  }
- 
-  fetchPosts()
 
 
-
-},[])
-
-
-console.log(odeljenja)
 
 
 
@@ -56,6 +40,10 @@ console.log(odeljenja)
 
   <Route path='/'  element={<HomePage/>} />
   <Route path='/odeljenja'  element={<OdeljenjaPage/>} />
+  <Route path='/odeljenja/:id' element={<Details />} />
+  <Route path='/odeljenja/create' element={<Create/>}/>
+
+
 </Routes>
 
 

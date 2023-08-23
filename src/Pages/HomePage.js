@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee,faBars } from '@fortawesome/free-solid-svg-icons'
+import { axios } from 'axios'
+
 const HomePage = () => {
     const navigate=useNavigate()
 
@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <div>
 
-        <button onClick={go}>Go to odeljenja</button>
+        <button onClick={()=>go}>Go to odeljenja</button>
         
     </div>
   )
