@@ -1,28 +1,19 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
-import { axios } from 'axios'
+import React from "react";
+import { useNavigate } from "react-router";
+import { axios } from "axios";
 
 const HomePage = () => {
-    const navigate=useNavigate()
+  const navigate = useNavigate();
 
-
-
-    const go =()=>{
-
-
-
-
-        navigate("/odeljenja")
-    }
-
+  const go = () => {
+    navigate("/odeljenja");
+  };
 
   return (
     <div>
-
-        <button onClick={()=>go}>Go to odeljenja</button>
-        
+      <button onClick={() => go}>Go to odeljenja</button>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

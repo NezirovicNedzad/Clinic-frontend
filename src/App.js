@@ -1,66 +1,23 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OdeljenjaPage from "./Pages/OdeljenjaPage";
+import NavBar from "./Components/NavBar";
+import Details from "./Pages/Details";
+import Create from "./Pages/Create";
+import LoginPage from "./Pages/LoginPage";
 
-
-import axios  from 'axios';
-import { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
-import HomePage from './Pages/HomePage';
-import OdeljenjaPage from './Pages/OdeljenjaPage';
-import NavBar from './Components/NavBar';
-import { useNavigate } from 'react-router-dom';
-import Details from './Pages/Details';
-import Create from './Pages/Create';
-import LoginPage from './Pages/LoginPage';
 function App() {
-
-
-
-
-
-
-
-
-
-
-
   return (
-    
-
-      <Router>
-
-<NavBar/>
-<Routes>
-
-
-
-
-  <Route path='/'  element={<HomePage/>} />
-  <Route path='/login' element={<LoginPage/>}/>
-  <Route path='/odeljenja'  element={<OdeljenjaPage/>} />
-  <Route path='/odeljenja/:id' element={<Details />} />
-  <Route path='/odeljenja/create' element={<Create/>}/>
-
-
-</Routes>
-
-
-      </Router>
-
-
-  
-
-
-)     
-
-
-
-
-
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/odeljenja' element={<OdeljenjaPage />} />
+        <Route path='/odeljenja/:id' element={<Details />} />
+        <Route path='/odeljenja/create' element={<Create />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

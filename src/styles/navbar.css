@@ -1,6 +1,4 @@
-*{
-
-
+* {
     padding: 0;
     margin:0;
     text-decoration: none;
@@ -8,24 +6,22 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: montserrat;
 }
 
-nav{
-
+nav {
     background:#0082e6;
     height: 80px; 
     width: 100%;
 }
 
-label{
+label {
     color: white;
     font-size: 35px;
     line-height: 80px;
     padding: 0 100px;
     font-weight: bold;
-
 }
 
 button{
@@ -133,4 +129,12 @@ label.checkbtn {
    #check:checked ~ ul{
            left: 0;
         }
+}
+
+button:focus {
+    outline: 0px dotted !important;
+    outline: 0px auto -webkit-focus-ring-color !important;
+}
+button:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px !important;
 }
