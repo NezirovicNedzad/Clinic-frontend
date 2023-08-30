@@ -48,7 +48,7 @@ nav ul li{
 nav ul li button{
     color:white;font-size: 17px;
 font-size: 17px;
-padding: 7px 13px;
+padding: 0px 10px;
 border-radius: 3px;
 text-transform: uppercase;
 }
@@ -121,11 +121,13 @@ label.checkbtn {
 
     nav ul li button{
         font-size: 20px;
+       
     }
 
     button:hover,button.active{
-        background: none;
-        color:#0082e6;
+        background: none!important;
+        color: #0082e6 !important;
+        padding: 0!important;
     }
  
    #check:checked ~ ul{

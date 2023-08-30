@@ -3,13 +3,15 @@ import {legacy_createStore as createStore,combineReducers,applyMiddleware} from 
 import thunk from 'redux-thunk'
 import { listOdeljenjaReducers ,deleteOdeljenjaReducers,OdeljenjaDetailsReducers,odeljenjeCreateReducer,odeljenjeUpdateReducer} from './reducers/odeljenjaReducers'
 import {composeWithDevTools} from 'redux-devtools-extension'
+import { KorisnickiLoginReducers } from './reducers/korisnickiReducer'
 
 const reducer=combineReducers({
 odeljenjaList:listOdeljenjaReducers,
 odeljenjaDelete:deleteOdeljenjaReducers,
 odeljenjaDetails:OdeljenjaDetailsReducers,
 odeljenjaCreate:odeljenjeCreateReducer,
-odeljenjaUpdate:odeljenjeUpdateReducer
+odeljenjaUpdate:odeljenjeUpdateReducer,
+korisnickiLogin:KorisnickiLoginReducers,
 
 })
 

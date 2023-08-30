@@ -15,6 +15,7 @@ import NavBar from './Components/NavBar';
 import { useNavigate } from 'react-router-dom';
 import Details from './Pages/Details';
 import Create from './Pages/Create';
+import LoginPage from './Pages/LoginPage';
 function App() {
 
 
@@ -39,6 +40,7 @@ function App() {
 
 
   <Route path='/'  element={<HomePage/>} />
+  <Route path='/login' element={<LoginPage/>}/>
   <Route path='/odeljenja'  element={<OdeljenjaPage/>} />
   <Route path='/odeljenja/:id' element={<Details />} />
   <Route path='/odeljenja/create' element={<Create/>}/>
