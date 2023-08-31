@@ -26,7 +26,7 @@ const NavBar = () => {
 
         <ul>
           <li>
-            <button onClick={() => toNav("")}>O nama</button>
+            <button onClick={() => toNav("errors")}>O nama</button>
           </li>
           <li>
             <button onClick={() => toNav("odeljenja")}>Odeljenja</button>

@@ -1,9 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import OdeljenjaPage from "./Pages/OdeljenjaPage";
 import NavBar from "./Components/NavBar";
 import Details from "./Pages/Details";
 import Create from "./Pages/Create";
 import LoginPage from "./Pages/LoginPage";
+import TestErrors from "./features/errors/TestError";
+import NotFound from "./features/errors/NotFound";
 
 function App() {
   return (
@@ -15,6 +22,9 @@ function App() {
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />
+        <Route path='/errors' element={<TestErrors />} />
+        <Route path='/not-found' element={<NotFound />} />
+        <Route path='/*' element={<Navigate replace to='/not-found' />} />
       </Routes>
     </Router>
   );
