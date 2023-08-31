@@ -12,6 +12,7 @@ import LoginPage from "./Pages/LoginPage";
 import TestErrors from "./features/errors/TestError";
 import NotFound from "./features/errors/NotFound";
 
+
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
+
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />

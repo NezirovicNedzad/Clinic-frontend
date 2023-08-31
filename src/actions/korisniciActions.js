@@ -2,6 +2,7 @@ import {
   KORISNICKI_LOGIN_REQUEST,
   KORISNICKI_LOGIN_SUCCESS,
   KORISNICKI_LOGIN_FAIL,
+  KORISNCIKI_LOGOUT,
 } from "../constants/korisniciConstants";
 import axios from "axios";
 
@@ -39,3 +40,18 @@ export const login = (email, password) => async (dispatch) => {
     });
   }
 };
+
+
+
+export const logout =() =>(dispatch)=>{
+
+  localStorage.removeItem('userInfo')
+  dispatch({
+      type:KORISNCIKI_LOGOUT
+  })
+
+
+  console.log("Uradi nesto")
+
+
+}
