@@ -18,19 +18,27 @@ const LoginPage = () => {
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
-  const { userInfo } = korisnickiLogin;
+  const { userInfo,success } = korisnickiLogin;
 
   const navigate = useNavigate();
+  const redirect='/profil'
+  useEffect(() => {
 
-  useEffect(() => {}, []);
+
+if(userInfo)
+{
+  navigate("/odeljenja");
+}
+
+  }, [userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     dispatch(login(email, password));
-
+if(success){
     navigate("/odeljenja");
-  };
+    }  };
 
   return (
     <Container fluid>
@@ -63,6 +71,13 @@ const LoginPage = () => {
           <Button className='dugme mt-4' type='submit' name='log'>
             Prijavi se
           </Button>
+          <Row className='py-3'>
+          <Col>
+        
+        
+          </Col>
+         
+        </Row>
         </Form>
       </FormContainer>
     </Container>

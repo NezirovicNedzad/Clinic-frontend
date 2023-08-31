@@ -5,6 +5,7 @@ import Details from "./Pages/Details";
 import Create from "./Pages/Create";
 import LoginPage from "./Pages/LoginPage";
 
+
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
+
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />

@@ -3,9 +3,11 @@ import "../styles/navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/korisniciActions";
 const NavBar = () => {
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
   const { userInfo } = korisnickiLogin;
@@ -14,6 +16,12 @@ const NavBar = () => {
     navigate(`/${naziv}`);
   };
 
+
+const logoutHandler =()=>{
+
+  dispatch(logout());
+  navigate("/");
+}
   return (
     <>
       <nav>
@@ -26,20 +34,12 @@ const NavBar = () => {
 
         <ul>
           <li>
-            <button onClick={() => toNav("")}>O nama</button>
+            <button onClick={() => toNav("")}>Novosti</button>
           </li>
-          <li>
-            <button onClick={() => toNav("odeljenja")}>Odeljenja</button>
-          </li>
-          <li>
-            <button>Pacijenti</button>
-          </li>
-          <li>
-            <button>Admin </button>
-          </li>
+      
           {!userInfo ? (
             <li>
-              <button onClick={() => toNav("login")}>Uloguj se </button>
+              <button onClick={() => toNav("login")}>Login </button>
             </li>
           ) : (
             <>
@@ -47,7 +47,7 @@ const NavBar = () => {
                 <button onClick={() => toNav("login")}>Profil </button>
               </li>
               <li>
-                <button onClick={() => toNav("login")}>Izloguj se </button>
+                <button onClick={logoutHandler}>Logout </button>
               </li>
             </>
           )}

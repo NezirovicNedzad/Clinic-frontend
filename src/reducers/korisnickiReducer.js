@@ -11,7 +11,7 @@ export const KorisnickiLoginReducers = (state = {}, action) => {
       return { loading: true };
 
     case KORISNICKI_LOGIN_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      return { loading: false,success:true, userInfo: action.payload };
 
     case KORISNICKI_LOGIN_FAIL:
       return { loading: false, error: action.payload };
