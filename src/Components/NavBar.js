@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/korisniciActions";
 const NavBar = () => {
   const navigate = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
   const { userInfo } = korisnickiLogin;
@@ -16,12 +16,10 @@ const NavBar = () => {
     navigate(`/${naziv}`);
   };
 
-
-const logoutHandler =()=>{
-
-  dispatch(logout());
-  navigate("/");
-}
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <>
       <nav>
@@ -32,34 +30,24 @@ const logoutHandler =()=>{
 
         <label className='logo'>ClinicX</label>
 
-        <ul>
-          <li>
-<<<<<<< HEAD
+        <ul className='NavUlLi'>
+          <li className='ml-2'>
             <button onClick={() => toNav("errors")}>O nama</button>
           </li>
-          <li>
-            <button onClick={() => toNav("odeljenja")}>Odeljenja</button>
-          </li>
-          <li>
-            <button>Pacijenti</button>
-          </li>
-          <li>
-            <button>Admin </button>
-=======
+          <li className='ml-2'>
             <button onClick={() => toNav("")}>Novosti</button>
->>>>>>> 31c8cf1375507506080570ffecb2a84d4e5564c9
           </li>
-      
+
           {!userInfo ? (
-            <li>
+            <li className='ml-2'>
               <button onClick={() => toNav("login")}>Login </button>
             </li>
           ) : (
             <>
-              <li>
-                <button onClick={() => toNav("login")}>Profil </button>
+              <li className='ml-2'>
+                <button onClick={() => toNav("profile")}>Profil </button>
               </li>
-              <li>
+              <li className='ml-2'>
                 <button onClick={logoutHandler}>Logout </button>
               </li>
             </>

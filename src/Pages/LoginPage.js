@@ -18,27 +18,24 @@ const LoginPage = () => {
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
-  const { userInfo,success } = korisnickiLogin;
+  const { userInfo, success } = korisnickiLogin;
 
   const navigate = useNavigate();
-  const redirect='/profil'
+  const redirect = "/profil";
   useEffect(() => {
-
-
-if(userInfo)
-{
-  navigate("/odeljenja");
-}
-
-  }, [userInfo]);
+    if (userInfo) {
+      navigate("/odeljenja");
+    }
+  }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     dispatch(login(email, password));
-if(success){
-    navigate("/odeljenja");
-    }  };
+    if (success) {
+      navigate("/odeljenja");
+    }
+  };
 
   return (
     <Container fluid>
@@ -72,12 +69,8 @@ if(success){
             Prijavi se
           </Button>
           <Row className='py-3'>
-          <Col>
-        
-        
-          </Col>
-         
-        </Row>
+            <Col></Col>
+          </Row>
         </Form>
       </FormContainer>
     </Container>

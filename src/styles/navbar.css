@@ -35,10 +35,10 @@ nav ul{
 
 }
 
-nav ul li{
-    display: inline-block;
-    line-height: 80px;
-    margin:0 5px;
+.NavUlLi{
+    display: flex !important;
+    line-height: 80px !important;
+    margin:0 5px !important;   
 }
 
 nav ul li button{
