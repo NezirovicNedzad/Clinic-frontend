@@ -26,6 +26,8 @@ const LoginPage = () => {
     if (userInfo) {
       navigate("/odeljenja");
     }
+    setEmail("")
+    setPassword("")
   }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
@@ -33,8 +35,10 @@ const LoginPage = () => {
 
     dispatch(login(email, password));
     if (success) {
+     
       navigate("/odeljenja");
     }
+    
   };
 
   return (
