@@ -45,7 +45,7 @@ const NavBar = () => {
           ) : (
             <>
               <li className='ml-2'>
-                <button onClick={() => toNav("profile")}>Profil </button>
+                <button onClick={() => toNav("profile-admin")}>Profil </button>
               </li>
               <li className='ml-2'>
                 <button onClick={logoutHandler}>Logout </button>

@@ -11,7 +11,8 @@ import Create from "./Pages/Create";
 import LoginPage from "./Pages/LoginPage";
 import TestErrors from "./features/errors/TestError";
 import NotFound from "./features/errors/NotFound";
-import ProfilePage from "./Pages/ProfilePage";
+import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
+import AdminLekari from "./Pages/Admin/AdminLekari";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile-admin' element={<AdminProfilePage />} />
+        <Route path='/lekari-admin' element={<AdminLekari />} />
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />
