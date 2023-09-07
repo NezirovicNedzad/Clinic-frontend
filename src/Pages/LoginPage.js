@@ -23,9 +23,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const redirect = "/profil";
   useEffect(() => {
-    if (userInfo) {
-      navigate("/odeljenja");
+    if (userInfo && userInfo.role=="Admin") {
+      navigate("/profile-admin");
     }
+    else if(userInfo && userInfo.role=="Lekar")
+    {
+      navigate("/profile-lekar");
+    }
+    else if(userInfo && userInfo.role=="Sestra")
+    {
+      navigate("/profile-sestra");
+    }
+    
     setEmail("")
     setPassword("")
   }, [userInfo, navigate]);

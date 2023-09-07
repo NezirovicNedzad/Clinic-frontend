@@ -11,7 +11,7 @@ import krevetImage from "../images/krevet.png"
 import users from "../images/group.png";
 import profile from "../images/user.png";
 
-import "../styles/adminProfilePage.css";
+import "../styles/adminProfilePage.css"
 
 export default function ProfilePage() {
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
@@ -57,11 +57,11 @@ const dispatch=useDispatch();
                 <h3>Opcije</h3>
 
                 <ul>
-                  <li>
+                  <li  className="navAdminLine activeNav">
                     <FaUser className='faIcons' />
                     Profil
                   </li>{" "}
-                  <li onClick={toggleDropdown}>
+                  <li  className="navAdminLine" onClick={toggleDropdown}>
                     <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
                   {showDropdown && (
@@ -70,7 +70,7 @@ const dispatch=useDispatch();
                       <li>Sestrice</li>
                     </ul>
                   )}
-                  <li>
+                  <li className="navAdminLine">
                     <FaList className='faIcons' />
                     Lista korisnika
                   </li>
@@ -97,15 +97,15 @@ const dispatch=useDispatch();
               <h3>Opcije</h3>
 
               <ul>
-                <li>
+                <li className="navAdminLine activeNav">
                   <FaUser className='faIcons' />
                   Profil
                 </li>
-               <li>
+               <li className="navAdminLine" >
                   <FaList className='faIcons' />
                   Lista pacijenata
                 </li>
-                <li>
+                <li className="navAdminLine" >
                 <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faAddressCard} />
                   Lista pregleda
                 </li>

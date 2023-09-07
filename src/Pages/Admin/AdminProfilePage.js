@@ -79,7 +79,7 @@ export default function AdminProfilePage() {
                     <FaUser className='faIcons' />
                     Profil
                   </li>{" "}
-                  <li className='navAdminLine' onClick={toggleDropdown}>
+                  <li className="navAdminLine" onClick={toggleDropdown}>
                     <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
                   {showDropdown && (
@@ -89,7 +89,7 @@ export default function AdminProfilePage() {
                       <li>Sestrice</li>
                     </ul>
                   )}
-                  <li className='navAdminLine'>
+                  <li className="navAdminLine">
                     <FaList className='faIcons' />
                     Lista korisnika
                   </li>
