@@ -54,19 +54,56 @@ body, html {
 
 .padding0 ul {
     text-align: left;
-    margin-top: 25px;
-    margin-left: 20px;
+    margin-left: 4px;
 }
 
 .padding0 ul li{
     font-size: 22px;
     color: #1A1A1A;
-    margin-top: 20px;
+    margin-top: 0px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    padding-left: 20px;
+}
+
+.navAdminLine {
+    line-height: 55px !important;
+}
+
+.padding0 ul :hover {
+    font-size: 22px;
     cursor: pointer;
 }
+
+.activeNav {
+    border-left: 3px solid #0082e6;
+    background-color: #ddd6d6;
+}
+
 
 .faIcons { 
     width: 30px;
     height: 19px;
     margin-right: 4px;
+}
+
+/* admin info */
+.adminInfo h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #1A1A1A;
+    text-transform: none;
+}
+
+.formLabel {
+    color: #1A1A1A !important;
+    font-size: 23px !important;
+    text-align: left !important;
+    padding: 0 !important;
+    line-height: 40px !important;
+    font-weight: 400 !important;
+}
+
+.formControlor {
+    width: 500px !important;
 }
