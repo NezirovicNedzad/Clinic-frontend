@@ -14,6 +14,8 @@ import NotFound from "./features/errors/NotFound";
 import AdminProfilePage from "./Pages/Admin/AdminProfilePage";
 import AdminLekari from "./Pages/Admin/AdminLekari";
 import ProfilePage from "./Pages/ProfilePage";
+import LekarProfilePage from "./Pages/Lekar/LekarProfilePage";
+import LekarOdeljenjePage from "./Pages/Lekar/LekarOdeljenjePage";
 
 function App() {
   return (
@@ -27,9 +29,13 @@ function App() {
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />
-        <Route path='/profile-lekar' element={<ProfilePage/>}/>
+        
+        <Route path='/profile-lekar/odeljenje' element={<ProfilePage/>}/>
+        <Route path='/profile-lekar/:id' element={<LekarOdeljenjePage/>}/>
+        <Route path='/profile-lekar' element={<LekarProfilePage/>}/>
         <Route path='/profile-sestra' element={<ProfilePage/>}/>
         <Route path='/errors' element={<TestErrors />} />
+
         <Route path='/not-found' element={<NotFound />} />
         <Route path='/*' element={<Navigate replace to='/not-found' />} />
       </Routes>

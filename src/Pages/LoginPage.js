@@ -34,9 +34,11 @@ const LoginPage = () => {
     {
       navigate("/profile-sestra");
     }
+    if(success)
+    {  setEmail("")
+    setPassword("")}
     
-    setEmail("")
-    setPassword("")
+  
   }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
