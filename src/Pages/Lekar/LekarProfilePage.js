@@ -98,8 +98,8 @@ navigate(`/profile-lekar/${id}`)
    }} >
 
 <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
-<p style={{color:'white'}}>Broj dostupnih mesta:{odeljenje.brojKreveta-odeljenje.brojPacijenata}</p>
-<p style={{color:'white'}}>Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
 <Container style={{display:"flex",flexWrap:"wrap"}} >
 {object1.map((x)=>(
@@ -125,8 +125,8 @@ navigate(`/profile-lekar/${id}`)
   }} >
 
 <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
-<p style={{color:'white'}}>Broj dostupnih mesta:{odeljenje.brojKreveta-odeljenje.brojPacijenata}</p>
-<p style={{color:'white'}}>Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
 <Container style={{display:"flex",flexWrap:"wrap"}} >
 {object1.map((x)=>(
@@ -151,8 +151,8 @@ navigate(`/profile-lekar/${id}`)
    }} >
 
 <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
-<p style={{color:'white'}}>Broj dostupnih mesta:{odeljenje.brojKreveta-odeljenje.brojPacijenata}</p>
-<p style={{color:'white'}}>Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
 <Container style={{display:"flex",flexWrap:"wrap"}} >
 {object1.map((x)=>(
@@ -177,8 +177,8 @@ navigate(`/profile-lekar/${id}`)
     }} >
  
  <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
- <p style={{color:'white'}}>Broj dostupnih mesta:{odeljenje.brojKreveta-odeljenje.brojPacijenata}</p>
- <p style={{color:'white'}}>Broj pacijenata:{odeljenje.brojPacijenata}</p>
+ <p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
+<p style={{color:'white'}}>Ukupno mesta</p>
  {object1= Array(odeljenje.brojKreveta).fill()}
  <Container style={{display:"flex",flexWrap:"wrap"}} >
  {object1.map((x)=>(
