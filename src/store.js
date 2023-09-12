@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import { listOdeljenjaReducers ,deleteOdeljenjaReducers,OdeljenjaDetailsReducers,odeljenjeCreateReducer,odeljenjeUpdateReducer} from './reducers/odeljenjaReducers'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { KorisnickiLoginReducers } from './reducers/korisnickiReducer'
+import { listPacijentiOdeljenjaReducers } from './reducers/pacijentiReducer'
 
 const reducer=combineReducers({
 odeljenjaList:listOdeljenjaReducers,
@@ -12,6 +13,7 @@ odeljenjaDetails:OdeljenjaDetailsReducers,
 odeljenjaCreate:odeljenjeCreateReducer,
 odeljenjaUpdate:odeljenjeUpdateReducer,
 korisnickiLogin:KorisnickiLoginReducers,
+pacijentiListReducer:listPacijentiOdeljenjaReducers
 
 })
 

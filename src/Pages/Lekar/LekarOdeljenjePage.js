@@ -12,6 +12,7 @@ import krevetImage from "../../images/krevet.png"
 import users from "../../images/group.png";
 import profile from "../../images/user.png";
 import { useParams } from "react-router";
+import { listPacijentOdeljenja } from "../../actions/pacijentActions";
 import "../../styles/adminProfilePage.css"
 const LekarOdeljenjePage = () => {
 
@@ -30,13 +31,18 @@ const LekarOdeljenjePage = () => {
   
     const { loading, error, odeljenje } = odeljenjaDetail;
   
+   const pacijentiListOdeljena=useSelector((state)=>state.pacijentiListReducer);
+const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
+
     const object1 = Array(odeljenje.brojKreveta).fill();
     useEffect(()=>{
   
         if (odeljenje.id !== id) {
             dispatch(DetailsOdeljenje(id));
           }
-    
+    dispatch(listPacijentOdeljenja(id));
+
+
       setBrojKreveta(odeljenje.brojKreveta);
       
     },[dispatch, id, odeljenje])
@@ -54,7 +60,7 @@ const LekarOdeljenjePage = () => {
         <Container fluid > 
         <Row>
           <Col md={3} className='padding0'>
-            <div className='navAdmin'>
+            <div  style={{height:"100vh"}} className='navAdmin'>
               <div className='adminImage'>
                 <Image fluid src={doctorImage} />
               </div>
@@ -91,36 +97,45 @@ const LekarOdeljenjePage = () => {
          
         
 
-          {index <  odeljenje.brojKreveta-odeljenje.brojPacijenata  ?
-          
-          <Container className="krevet"  style={{width:"6rem",margin:"15px 10px",backgroundColor:"white"}}>
+          {index <  odeljenje.brojKreveta-odeljenje.brojPacijenata && 
+          <Container className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"white"}}>
            
           
           <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
        
           <p style={{color:"black",textAlign:"center"}}>{index +1 }</p>
-        </Container> :  <Container  className="krevet"  style={{width:"6rem",margin:"15px 10px",backgroundColor:"green"}}>
-           
-          
-           <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
+         </Container>  
          
-           <p style={{color:"white",textAlign:"center"}}>{index+1}</p>
-
-           <button  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  
-         </Container>
-
-
-          
-
-
-}              
+ 
+         } 
+               
                 </>        
 
 
 
                 )}
 
+{pacijenti.map((pacijent,index)  =>  (
 
+odeljenje.brojPacijenata>0  ?
+
+  <Container  className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"green"}}>
+    
+   
+  <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
+
+
+ < p style={{color:"white",textAlign:"center",fontSize:"13px"}}>{index+1+odeljenje.brojKreveta-odeljenje.brojPacijenata} {pacijent.prezime}</p>
+ < p style={{color:"white",textAlign:"center",fontSize:"12px"}}>{pacijent.jmbg}</p>
+   
+<Container style={{display:"flex",justifyContent:"center"}}>   <button  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  </Container>
+</Container> : <></> 
+
+
+
+
+
+  ))}    
             </Container>
 
              

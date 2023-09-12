@@ -50,15 +50,16 @@ navigate(`/profile-lekar/${id}`)
 
   return (
     <>
-      <Container fluid style={{height:"100%"}} > 
+      <Container fluid  > 
         <Row>
           <Col md={3}  className='padding0'>
-            <div style={{height:"100%"}} className='navAdmin'>
+            <div style={{height:"100%"}}  className='navAdmin'>
               <div className='adminImage'>
                 <Image fluid src={doctorImage} />
               </div>
               <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
               <p>{userInfo.role}</p>
+
 
               <h3>Opcije</h3>
 
