@@ -9,7 +9,7 @@ body, html {
 }
 
 .navAdmin {
-   
+   height: 100vh;
     background-color: #f0f0f0;
 }
 
@@ -111,8 +111,75 @@ body, html {
 
 .formControlor {
     width: 500px !important;
+    color: #1A1A1A !important;
+    border: 2px solid black !important;
+    border-radius: 0;
+    margin-right: 20px;
+}
+.selectControl {
+    height: 45px;
+    width: 500px;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    word-wrap: normal;
+    border: 2px solid #1A1A1A;
+    margin-right: 20px;
 }
 
 .krevet:hover{
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    color: #fff;
+    background-color: #070707;
+    border-color: #010000;
+    box-shadow: none !important;
+}
+
+.buttonAdd {
+    background-color: #1A1A1A;
+}
+
+.error-container {
+    padding: 10px; /* Dodajte malo prostora između ivice i poruka */
+    margin: 10px 0; /* Dodajte prostor iznad i ispod kontejnera */
+  }
+  
+  .error-box {
+    border-radius: 3px;
+    background-color: #dc3545;
+    padding: 8px; /* Dodajte prostor između ivice i teksta */
+    margin: 5px 0; /* Dodajte prostor iznad i ispod svake poruke */
+    color: white;
+    font-weight: bold; 
+}
+    
+.successMessage {
+    background-color: #198754;
+    border-radius: 3px;
+    padding: 8px 20px; 
+    margin: 5px 0; 
+    color: white;
+    font-weight: bold; 
+}
+
+.tableThead {
+    background-color: #0082e6 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.tableTr {
+    background-color: #ddd6d6 !important;
+    color: #55595c;
+    font-weight: bold;
+    text-align: center;
+    font-size: 19px;
+    border-top: 3px solid #0082e6;
+}
+
+.pointer {
+    cursor: pointer;
 }

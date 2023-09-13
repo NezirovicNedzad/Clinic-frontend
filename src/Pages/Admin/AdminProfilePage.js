@@ -3,7 +3,13 @@ import { Col, Container, Row, Image, Button, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
-import { FaList, FaUser, FaUserEdit, FaUsers } from "react-icons/fa";
+import {
+  FaGripHorizontal,
+  FaList,
+  FaUser,
+  FaUserEdit,
+  FaUsers,
+} from "react-icons/fa";
 import {} from "react-icons/bi";
 import { IoMdContact } from "react-icons/io";
 
@@ -23,7 +29,8 @@ export default function AdminProfilePage() {
 
   const { userInfo, success } = korisnickiLogin;
 
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdownLekari, setShowDropdownLekari] = useState(false);
+  const [showDropdownOdeljenja, setShowDropdownOdeljenja] = useState(false);
 
   useEffect(() => {
     if (userInfo) {
@@ -35,8 +42,12 @@ export default function AdminProfilePage() {
     }
   }, [userInfo]);
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  const toggleDropdownLekari = () => {
+    setShowDropdownLekari(!showDropdownLekari);
+  };
+
+  const toggleDropdownOdeljenja = () => {
+    setShowDropdownOdeljenja(!showDropdownOdeljenja);
   };
 
   const toNav = (naziv) => {
@@ -79,20 +90,32 @@ export default function AdminProfilePage() {
                     <FaUser className='faIcons' />
                     Profil
                   </li>{" "}
-                  <li className="navAdminLine" onClick={toggleDropdown}>
+                  <li className='navAdminLine' onClick={toggleDropdownLekari}>
                     <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
-                  {showDropdown && (
+                  {showDropdownLekari && (
                     <ul style={{ marginLeft: "50px" }}>
                       <li onClick={() => toNav("lekari-admin")}>Lekari</li>
 
-                      <li>Sestrice</li>
+                      <li onClick={() => toNav("sestrice-admin")}>Sestrice</li>
+                      <li onClick={() => toNav("lista-korisnika-admin")}>
+                        Lista korisnika
+                      </li>
                     </ul>
                   )}
-                  <li className="navAdminLine">
-                    <FaList className='faIcons' />
-                    Lista korisnika
+                  <li
+                    className='navAdminLine'
+                    onClick={toggleDropdownOdeljenja}
+                  >
+                    <FaGripHorizontal className='faIcons' /> Odeljenja ▼
                   </li>
+                  {showDropdownOdeljenja && (
+                    <ul style={{ marginLeft: "50px" }}>
+                      <li onClick={() => toNav("lekari-admin")}>Dodaj</li>
+
+                      <li onClick={() => toNav("sestrice-admin")}>Ukloni</li>
+                    </ul>
+                  )}
                 </ul>
               </div>
             </Col>

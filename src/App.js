@@ -16,6 +16,8 @@ import AdminLekari from "./Pages/Admin/AdminLekari";
 import ProfilePage from "./Pages/ProfilePage";
 import LekarProfilePage from "./Pages/Lekar/LekarProfilePage";
 import LekarOdeljenjePage from "./Pages/Lekar/LekarOdeljenjePage";
+import AdminSestrice from "./Pages/Admin/AdminSestrice";
+import AdminListaKorisnika from "./Pages/Admin/AdminListaKorisnika";
 
 function App() {
   return (
@@ -26,14 +28,19 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/profile-admin' element={<AdminProfilePage />} />
         <Route path='/lekari-admin' element={<AdminLekari />} />
+        <Route path='/sestrice-admin' element={<AdminSestrice />} />
+        <Route
+          path='/lista-korisnika-admin'
+          element={<AdminListaKorisnika />}
+        />
         <Route path='/odeljenja' element={<OdeljenjaPage />} />
         <Route path='/odeljenja/:id' element={<Details />} />
         <Route path='/odeljenja/create' element={<Create />} />
-        
-        <Route path='/profile-lekar/odeljenje' element={<ProfilePage/>}/>
-        <Route path='/profile-lekar/:id' element={<LekarOdeljenjePage/>}/>
-        <Route path='/profile-lekar' element={<LekarProfilePage/>}/>
-        <Route path='/profile-sestra' element={<ProfilePage/>}/>
+
+        <Route path='/profile-lekar/odeljenje' element={<ProfilePage />} />
+        <Route path='/profile-lekar/:id' element={<LekarOdeljenjePage />} />
+        <Route path='/profile-lekar' element={<LekarProfilePage />} />
+        <Route path='/profile-sestra' element={<ProfilePage />} />
         <Route path='/errors' element={<TestErrors />} />
 
         <Route path='/not-found' element={<NotFound />} />
