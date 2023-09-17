@@ -18,6 +18,8 @@ import LekarProfilePage from "./Pages/Lekar/LekarProfilePage";
 import LekarOdeljenjePage from "./Pages/Lekar/LekarOdeljenjePage";
 import AdminSestrice from "./Pages/Admin/AdminSestrice";
 import AdminListaKorisnika from "./Pages/Admin/AdminListaKorisnika";
+import AdminUkloniOdeljenje from "./Pages/Admin/AdminUkloniOdeljenje";
+import AdminDodajOdeljenje from "./Pages/Admin/AdminDodajOdeljenje";
 
 function App() {
   return (
@@ -29,6 +31,11 @@ function App() {
         <Route path='/profile-admin' element={<AdminProfilePage />} />
         <Route path='/lekari-admin' element={<AdminLekari />} />
         <Route path='/sestrice-admin' element={<AdminSestrice />} />
+        <Route path='/odeljenja-admin' element={<AdminUkloniOdeljenje />} />
+        <Route
+          path='/dodaj-odeljenja-admin'
+          element={<AdminDodajOdeljenje />}
+        />
         <Route
           path='/lista-korisnika-admin'
           element={<AdminListaKorisnika />}

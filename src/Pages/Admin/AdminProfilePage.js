@@ -111,9 +111,11 @@ export default function AdminProfilePage() {
                   </li>
                   {showDropdownOdeljenja && (
                     <ul style={{ marginLeft: "50px" }}>
-                      <li onClick={() => toNav("lekari-admin")}>Dodaj</li>
+                      <li onClick={() => toNav("dodaj-odeljenja-admin")}>
+                        Dodaj
+                      </li>
 
-                      <li onClick={() => toNav("sestrice-admin")}>Ukloni</li>
+                      <li onClick={() => toNav("odeljenja-admin")}>Ukloni</li>
                     </ul>
                   )}
                 </ul>

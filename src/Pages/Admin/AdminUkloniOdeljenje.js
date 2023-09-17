@@ -20,19 +20,22 @@ import {
   ukloniKorisnika,
 } from "../../actions/korisniciActions";
 
-export default function AdminListaKorisnika() {
+import { deleteOdeljenje, listOdeljenja } from "../../actions/odeljenjaActions";
+
+export default function AdminUkloniOdeljenje() {
   const navigate = useNavigate();
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
-  const listaKorisnikaState = useSelector((state) => state.korisniciList);
-  const { loading, error, korisnici } = listaKorisnikaState;
 
-  const ukloniKorisnikaState = useSelector((state) => state.korisniciUkloni);
+  const listaOdeljenjaState = useSelector((state) => state.odeljenjaList);
+  const { loading, error, odeljenja } = listaOdeljenjaState;
+
+  const ukloniOdeljenjeState = useSelector((state) => state.odeljenjaDelete);
   const {
     loading: loadingUkloni,
     error: errorUkloni,
     success,
-  } = ukloniKorisnikaState;
+  } = ukloniOdeljenjeState;
 
   const dispatch = useDispatch();
 
@@ -41,7 +44,7 @@ export default function AdminListaKorisnika() {
   const [showDropdownLekari, setShowDropdownLekari] = useState(false);
   const [showDropdownOdeljenja, setShowDropdownOdeljenja] = useState(false);
   useEffect(() => {
-    dispatch(listaKorisnika());
+    dispatch(listOdeljenja());
   }, [dispatch, success]);
 
   const toggleDropdownLekari = () => {
@@ -57,8 +60,8 @@ export default function AdminListaKorisnika() {
   };
 
   const handleDeleteUser = (id) => {
-    if (window.confirm("Da li ste sigurni da želite da obrišete korisnika?")) {
-      dispatch(ukloniKorisnika(id));
+    if (window.confirm("Da li ste sigurni da želite da obrišete odeljenje?")) {
+      dispatch(deleteOdeljenje(id));
     }
   };
 
@@ -87,10 +90,7 @@ export default function AdminListaKorisnika() {
                     <FaUser className='faIcons' />
                     Profil
                   </li>{" "}
-                  <li
-                    className='navAdminLine activeNav'
-                    onClick={toggleDropdownLekari}
-                  >
+                  <li className='navAdminLine' onClick={toggleDropdownLekari}>
                     <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
                   {showDropdownLekari && (
@@ -98,16 +98,13 @@ export default function AdminListaKorisnika() {
                       <li onClick={() => toNav("lekari-admin")}>Lekari</li>
 
                       <li onClick={() => toNav("sestrice-admin")}>Sestrice</li>
-                      <li
-                        className='activeNav'
-                        onClick={() => toNav("lista-korisnika-admin")}
-                      >
+                      <li onClick={() => toNav("lista-korisnika-admin")}>
                         Lista korisnika
                       </li>
                     </ul>
                   )}
                   <li
-                    className='navAdminLine'
+                    className='navAdminLine activeNav'
                     onClick={toggleDropdownOdeljenja}
                   >
                     <FaGripHorizontal className='faIcons' /> Odeljenja ▼
@@ -118,7 +115,12 @@ export default function AdminListaKorisnika() {
                         Dodaj
                       </li>
 
-                      <li onClick={() => toNav("odeljenja-admin")}>Ukloni</li>
+                      <li
+                        className='activeNav'
+                        onClick={() => toNav("odeljenja-admin")}
+                      >
+                        Ukloni
+                      </li>
                     </ul>
                   )}
                 </ul>
@@ -127,7 +129,7 @@ export default function AdminListaKorisnika() {
             <Col md={9}>
               <div className='adminInfo'>
                 <h1>
-                  Lista korisnika <FaListUl />
+                  Lista odeljenja <FaListUl />
                 </h1>
                 <div
                   style={{
@@ -143,65 +145,30 @@ export default function AdminListaKorisnika() {
                     <Table className='mt-4' striped bordered hover>
                       <thead className='tableThead'>
                         <tr>
-                          <th>Ime</th>
-                          <th>Prezime</th>
-                          <th>Email</th>
-                          <th>Uloga</th>
+                          <th>Naziv</th>
+                          <th>Broj kreveta</th>
+                          <th>Broj pacijenata</th>
+                          {/* <th>Osoblje</th> */}
                           <th></th>
-                        </tr>
-                        <tr className='tableTr'>
-                          <th colSpan={5}>Lekari</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {korisnici ? (
-                          korisnici
-                            .filter((k) => k.role === "Lekar")
-                            .map((korisnik) => (
-                              <tr key={korisnik.id}>
-                                <td>{korisnik.ime}</td>
-                                <td>{korisnik.prezime}</td>
-                                <td>{korisnik.email}</td>
-                                <td>{korisnik.role}</td>
-                                <td>
-                                  <FaTrashAlt
-                                    className='pointer'
-                                    onClick={() =>
-                                      handleDeleteUser(korisnik.id)
-                                    }
-                                    data-id={korisnik.id}
-                                  />
-                                </td>
-                              </tr>
-                            ))
-                        ) : (
-                          <tr>
-                            <td colSpan='5'>Nema korisnika.</td>
-                          </tr>
-                        )}
-                        <tr className='tableTr'>
-                          <th colSpan={5}>Sestrice</th>
-                        </tr>
-                        {korisnici ? (
-                          korisnici
-                            .filter((k) => k.role === "Sestra")
-                            .map((korisnik) => (
-                              <tr key={korisnik.id}>
-                                <td>{korisnik.ime}</td>
-                                <td>{korisnik.prezime}</td>
-                                <td>{korisnik.email}</td>
-                                <td>{korisnik.role}</td>
-                                <td>
-                                  <FaTrashAlt
-                                    className='pointer'
-                                    onClick={() =>
-                                      handleDeleteUser(korisnik.id)
-                                    }
-                                    data-id={korisnik.id}
-                                  />
-                                </td>
-                              </tr>
-                            ))
+                        {odeljenja ? (
+                          odeljenja.map((odeljenje) => (
+                            <tr key={odeljenje.id}>
+                              <td>{odeljenje.naziv}</td>
+                              <td>{odeljenje.brojKreveta}</td>
+                              <td>{odeljenje.brojPacijenata}</td>
+                              {/* <td>{korisnik.role}</td> */}
+                              <td>
+                                <FaTrashAlt
+                                  className='pointer'
+                                  onClick={() => handleDeleteUser(odeljenje.id)}
+                                  data-id={odeljenje.id}
+                                />
+                              </td>
+                            </tr>
+                          ))
                         ) : (
                           <tr>
                             <td colSpan='5'>Nema korisnika.</td>
