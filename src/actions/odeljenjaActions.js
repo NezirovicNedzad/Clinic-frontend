@@ -82,13 +82,14 @@ export const DetailsOdeljenje = (id) => async (dispatch) => {
 };
 
 export const CreateOdeljenje =
-  (id, naziv, brojKreveta, brojPacijenata) => async (dispatch) => {
+  (naziv, specijalizacijaNaziv, brojKreveta, brojPacijenata) =>
+  async (dispatch) => {
     try {
       dispatch({ type: ODELJENJE_CREATE_REQUEST });
 
       const { data } = await axios.post("http://localhost:5000/api/Odeljenje", {
-        id,
         naziv,
+        specijalizacijaNaziv,
         brojKreveta,
         brojPacijenata,
       });
@@ -100,10 +101,7 @@ export const CreateOdeljenje =
     } catch (error) {
       dispatch({
         type: ODELJENJE_CREATE_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.response.data,
       });
     }
   };

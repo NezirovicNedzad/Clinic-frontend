@@ -4,41 +4,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader";
 
-import { listOdeljenja } from "../../actions/odeljenjaActions";
+import { CreateOdeljenje, listOdeljenja } from "../../actions/odeljenjaActions";
 
-import {
-  FaGripHorizontal,
-  FaList,
-  FaUser,
-  FaUserPlus,
-  FaUsers,
-} from "react-icons/fa";
+import { FaGripHorizontal, FaUser, FaUsers } from "react-icons/fa";
 
 import adminImage from "../../images/user-gear.png";
 
 import "../../styles/adminProfilePage.css";
-import { dodajKorisnika } from "../../actions/korisniciActions";
 
-export default function AdminSestrice() {
+export default function AdminDodajOdeljenje() {
   const navigate = useNavigate();
 
-  const [selectedOdeljenje, setSelectedOdeljenje] = useState("");
-
   const [formData, setFormData] = useState({
-    ime: "",
-    prezime: "",
-    email: "",
-    username: "",
-    password: "",
-    role: "Sestra",
+    naziv: "",
+    zvanje: "",
+    brKreveta: 0,
+    brPacijenata: 0,
   });
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
-  const listaOdeljenja = useSelector((state) => state.odeljenjaList);
-  const { loading: loadingList, error: errorList, odeljenja } = listaOdeljenja;
-  const dodajKorisnikaAdmin = useSelector((state) => state.dodajKorisnikaState);
 
-  const { loading, error, success } = dodajKorisnikaAdmin;
+  const dodajOdeljenjeAdmin = useSelector((state) => state.odeljenjaCreate);
+  const { loading, error, success } = dodajOdeljenjeAdmin;
+
+  const listaOdeljenjaState = useSelector((state) => state.odeljenjaList);
+  const { odeljenja } = listaOdeljenjaState;
 
   const dispatch = useDispatch();
 
@@ -46,23 +36,19 @@ export default function AdminSestrice() {
 
   const [showDropdownLekari, setShowDropdownLekari] = useState(false);
   const [showDropdownOdeljenja, setShowDropdownOdeljenja] = useState(false);
-
-  useEffect(() => {
-    if (success) {
-      setFormData({
-        ime: "",
-        prezime: "",
-        email: "",
-        username: "",
-        password: "",
-        role: "Sestra",
-      });
-    }
-  }, [selectedOdeljenje, odeljenja, success]);
+  const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
     dispatch(listOdeljenja());
-  }, [dispatch]);
+    if (success) {
+      setFormData({
+        naziv: "",
+        zvanje: "",
+        brKreveta: 0,
+        brPacijenata: 0,
+      });
+    }
+  }, [dispatch, success]);
 
   const toggleDropdownLekari = () => {
     setShowDropdownLekari(!showDropdownLekari);
@@ -70,11 +56,6 @@ export default function AdminSestrice() {
 
   const toggleDropdownOdeljenja = () => {
     setShowDropdownOdeljenja(!showDropdownOdeljenja);
-  };
-
-  const handleOdeljenjeChange = (e) => {
-    const selectedOdeljenjeId = e.target.value;
-    setSelectedOdeljenje(selectedOdeljenjeId);
   };
 
   const toNav = (naziv) => {
@@ -92,36 +73,29 @@ export default function AdminSestrice() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { ime, prezime, email, username, password, role } = formData;
-
-    dispatch(
-      dodajKorisnika(
-        email,
-        password,
-        role,
-        ime,
-        prezime,
-        username,
-        "",
-        selectedOdeljenje
-      )
+    const { naziv, zvanje, brKreveta, brPacijenata } = formData;
+    const nazivVecPostoji = odeljenja.some(
+      (odeljenje) =>
+        odeljenje.naziv === naziv && odeljenje.specijalizacijaNaziv === zvanje
     );
-    console.log(formData);
-    console.log(selectedOdeljenje);
-    console.log(error);
+
+    if (nazivVecPostoji) {
+      setErrorText("Odeljenje sa istim nazivom i zvanjem već postoji.");
+    } else {
+      setErrorText("");
+      dispatch(CreateOdeljenje(naziv, zvanje, brKreveta, brPacijenata));
+    }
   };
 
   return (
     <>
-      {loadingList ? (
-        <Loader />
-      ) : loading ? (
+      {loading ? (
         <Loader />
       ) : userInfo.role === "Admin" ? (
         <Container fluid>
           <Row>
             <Col md={3} className='padding0'>
-              <div style={{height:"100vh"}} className='navAdmin'>
+              <div className='navAdmin'>
                 <div className='adminImage'>
                   <Image fluid src={adminImage} />
                 </div>
@@ -138,36 +112,31 @@ export default function AdminSestrice() {
                     <FaUser className='faIcons' />
                     Profil
                   </li>{" "}
-                  <li
-                    className='navAdminLine activeNav'
-                    onClick={toggleDropdownLekari}
-                  >
+                  <li className='navAdminLine' onClick={toggleDropdownLekari}>
                     <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
                   {showDropdownLekari && (
                     <ul style={{ marginLeft: "50px" }}>
                       <li onClick={() => toNav("lekari-admin")}>Lekari</li>
 
-                      <li
-                        className='activeNav'
-                        onClick={() => toNav("sestrice-admin")}
-                      >
-                        Sestrice
-                      </li>
+                      <li onClick={() => toNav("sestrice-admin")}>Sestrice</li>
                       <li onClick={() => toNav("lista-korisnika-admin")}>
                         Lista korisnika
                       </li>
                     </ul>
                   )}
                   <li
-                    className='navAdminLine'
+                    className='navAdminLine activeNav'
                     onClick={toggleDropdownOdeljenja}
                   >
                     <FaGripHorizontal className='faIcons' /> Odeljenja ▼
                   </li>
                   {showDropdownOdeljenja && (
                     <ul style={{ marginLeft: "50px" }}>
-                      <li onClick={() => toNav("dodaj-odeljenja-admin")}>
+                      <li
+                        className='activeNav'
+                        onClick={() => toNav("dodaj-odeljenja-admin")}
+                      >
                         Dodaj
                       </li>
 
@@ -180,7 +149,7 @@ export default function AdminSestrice() {
             <Col md={9}>
               <div className='adminInfo'>
                 <h1>
-                  Dodaj sestricu <FaUserPlus />
+                  Dodaj odeljenje <FaGripHorizontal />
                 </h1>
                 <div
                   style={{
@@ -190,6 +159,13 @@ export default function AdminSestrice() {
                     flexDirection: "column",
                   }}
                 >
+                  {errorText && (
+                    <div className='error-container'>
+                      <div className='error-message'>
+                        <div className='error-box'>{errorText}</div>
+                      </div>
+                    </div>
+                  )}
                   {error && (
                     <div className='error-container'>
                       {Array.isArray(error)
@@ -215,106 +191,68 @@ export default function AdminSestrice() {
                           )}
                     </div>
                   )}
+
                   {success && (
                     <div className='successMessage'>
-                      Uspešno dodata sestrica
+                      Uspešno dodato odeljenje
                     </div>
                   )}
 
                   <Form onSubmit={handleSubmit}>
                     <Row>
-                      <Form.Group className='mb-3' controlId='formBasicIme'>
-                        <Form.Label className='formLabel'>Ime</Form.Label>
+                      <Form.Group className='mb-3' controlId='formBasicNaziv'>
+                        <Form.Label className='formLabel'>Naziv</Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='ime'
+                          name='naziv'
                           onChange={handleInputChange}
                           type='text'
-                          value={formData.ime}
+                          value={formData.naziv}
                         />
                       </Form.Group>
 
-                      <Form.Group className='mb-3' controlId='formBasicPrezime'>
-                        <Form.Label className='formLabel'>Prezime</Form.Label>
+                      <Form.Group className='mb-3' controlId='formBasicZvanje'>
+                        <Form.Label className='formLabel'>Zvanje</Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='prezime'
+                          name='zvanje'
                           onChange={handleInputChange}
                           type='text'
-                          value={formData.prezime}
+                          value={formData.zvanje}
                         />
                       </Form.Group>
                     </Row>
 
                     <Row>
-                      <Form.Group className='mb-3' controlId='formBasicEmail'>
-                        <Form.Label className='formLabel'>Email</Form.Label>
+                      <Form.Group
+                        className='mb-3'
+                        controlId='formBasicbrKreveta'
+                      >
+                        <Form.Label className='formLabel'>
+                          Broj kreveta
+                        </Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='email'
+                          name='brKreveta'
                           onChange={handleInputChange}
-                          type='email'
-                          value={formData.email}
+                          type='number'
+                          value={formData.brKreveta}
                         />
                       </Form.Group>
 
                       <Form.Group
                         className='mb-3'
-                        controlId='formBasicOdeljenja'
+                        controlId='formBasicbrPacijenata'
                       >
-                        <Form.Label className='formLabel'>Odeljenja</Form.Label>
-                        <br />
-                        <Form.Select
-                          className='selectControl'
-                          aria-label='Default select example'
-                          onChange={handleOdeljenjeChange}
-                          value={selectedOdeljenje}
-                          name='odeljenjeId'
-                        >
-                          <option value=''>Izaberite odeljenje</option>
-                          {odeljenja.map((odeljenje) => (
-                            <option key={odeljenje.id} value={odeljenje.id}>
-                              {odeljenje.naziv}
-                            </option>
-                          ))}
-                        </Form.Select>
-                      </Form.Group>
-                    </Row>
-                    <Row>
-                      <Form.Group className='mb-3' controlId='formBasicUloga'>
-                        <Form.Label className='formLabel'>Uloga</Form.Label>
-
-                        <Form.Control
-                          className='formControlor'
-                          name='role'
-                          onChange={handleInputChange}
-                          type='text'
-                          value={formData.role}
-                          disabled
-                        />
-                      </Form.Group>
-                      <Form.Group className='mb-3' controlId='formBasicLozinka'>
-                        <Form.Label className='formLabel'>Lozinka</Form.Label>
-                        <Form.Control
-                          className='formControlor'
-                          name='password'
-                          onChange={handleInputChange}
-                          type='password'
-                          value={formData.password}
-                        />
-                      </Form.Group>
-                    </Row>
-                    <Row>
-                      <Form.Group className='mb-3' controlId='formBasicKoIme'>
                         <Form.Label className='formLabel'>
-                          Korisničko ime
+                          Broj pacijenata
                         </Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='username'
+                          name='brPacijenata'
                           onChange={handleInputChange}
-                          type='text'
-                          value={formData.username}
+                          type='number'
+                          value={formData.brPacijenata}
                         />
                       </Form.Group>
                     </Row>
@@ -324,7 +262,7 @@ export default function AdminSestrice() {
                         type='submit'
                         variant='primary'
                       >
-                        Dodaj sestricu
+                        Dodaj odeljenje
                       </Button>
                     </Row>
                   </Form>
