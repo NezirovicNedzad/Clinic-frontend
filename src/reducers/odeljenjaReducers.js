@@ -15,6 +15,7 @@ import {
   ODELJENJE_UPDATE_SUCCESS,
   ODELJENJE_UPDATE_FAIL,
   ODELJENJE_UPDATE_RESET,
+  ODELJENJA_DETAILS_FAIL,
 } from "../constants/odeljenjaConstants";
 
 export const listOdeljenjaReducers = (state = { odeljenja: [] }, action) => {
@@ -41,7 +42,7 @@ export const OdeljenjaDetailsReducers = (state = { odeljenje: {} }, action) => {
     case ODELJENJA_DETAILS_SUCCESS:
       return { loading: false, odeljenje: action.payload };
 
-    case ODELJENJA_LIST_FAIL:
+    case ODELJENJA_DETAILS_FAIL:
       return { loading: false, error: action.payload };
 
     default:

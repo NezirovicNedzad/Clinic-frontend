@@ -135,7 +135,7 @@ export default function AdminLekari() {
         <Container fluid>
           <Row>
             <Col md={3} className='padding0'>
-              <div className='navAdmin'>
+              <div style={{height:"100vh"}} className='navAdmin'>
                 <div className='adminImage'>
                   <Image fluid src={adminImage} />
                 </div>

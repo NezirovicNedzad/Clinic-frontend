@@ -59,8 +59,8 @@ navigate(`/profile-lekar/${id}`)
               </div>
               <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
               <p>{userInfo.role}</p>
-
-
+ 
+           <p style={{textTransform:"none"}}>Specijalizacija:<span style={{textTransform:"capitalize"}}>{userInfo.specijalizacija}</span></p>
               <h3>Opcije</h3>
 
               <ul>
@@ -86,7 +86,8 @@ navigate(`/profile-lekar/${id}`)
                 <h3 style={{textAlign:"center",paddingTop:"0.7rem"}}>Odeljenja</h3>
                     
           <Container className='novi' >
-            
+          {loading && <Loader ></Loader>}  
+   {error && <Message>Greska</Message>}   
           {odeljenja.map((odeljenje,i)=>(
         
               odeljenje.brojKreveta<=15 ? <>
@@ -196,8 +197,7 @@ navigate(`/profile-lekar/${id}`)
    ))}
             </Container>
 
-   {loading && <Loader ></Loader>}  
-   {error && <Message>Greska</Message>}   
+   
    
 
 

@@ -12,9 +12,22 @@ const NavBar = () => {
 
   const { userInfo } = korisnickiLogin;
 
-  const toNav = (naziv) => {
-    navigate(`/${naziv}`);
+  const toNav = () => {
+
+    if(userInfo.role=='Admin')
+    navigate(`/profile-admin`);
+  else if(userInfo.role=='Lekar')
+  navigate("/profile-lekar");
+else if(userInfo.role=="Sestra")
+ navigate("/profile-sestrica")
+   
   };
+
+  const Nav =(naziv)=>{
+
+    navigate("/"+naziv);
+
+  }
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -32,20 +45,20 @@ const NavBar = () => {
 
         <ul className='NavUlLi'>
           <li className='ml-2'>
-            <button onClick={() => toNav("errors")}>O nama</button>
+            <button onClick={() => Nav("Pocetna")}>O nama</button>
           </li>
           <li className='ml-2'>
-            <button onClick={() => toNav("")}>Novosti</button>
+            <button onClick={() => Nav("Novosti")}>Novosti</button>
           </li>
 
           {!userInfo ? (
             <li className='ml-2'>
-              <button onClick={() => toNav("login")}>Login </button>
+              <button onClick={() => Nav("login")}>Login </button>
             </li>
           ) : (
             <>
               <li className='ml-2'>
-                <button onClick={() => toNav("profile-admin")}>Profil </button>
+                <button onClick={() => toNav()}>Profil </button>
               </li>
               <li className='ml-2'>
                 <button onClick={logoutHandler}>Logout </button>

@@ -1,0 +1,23 @@
+.novi2{
+    width: 650px;
+    height: 600px;
+}
+
+.slick-slide {
+    display:flex;
+    justify-content: center;
+    width: 600px;
+
+    height: 630px;
+  
+
+
+}
+
+.slick-next:before, .slick-prev:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color:#43b9dc;
+}
+

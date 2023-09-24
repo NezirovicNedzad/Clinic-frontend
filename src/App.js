@@ -18,6 +18,8 @@ import LekarProfilePage from "./Pages/Lekar/LekarProfilePage";
 import LekarOdeljenjePage from "./Pages/Lekar/LekarOdeljenjePage";
 import AdminSestrice from "./Pages/Admin/AdminSestrice";
 import AdminListaKorisnika from "./Pages/Admin/AdminListaKorisnika";
+import LekarKarton from "./Pages/Lekar/LekarKartonPage";
+import LekarKartonPage from "./Pages/Lekar/LekarKartonPage";
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
 
         <Route path='/profile-lekar/odeljenje' element={<ProfilePage />} />
         <Route path='/profile-lekar/:id' element={<LekarOdeljenjePage />} />
+        <Route path='/profile-lekar/:id/:pacijentId' element={<LekarKartonPage />} />
         <Route path='/profile-lekar' element={<LekarProfilePage />} />
         <Route path='/profile-sestra' element={<ProfilePage />} />
         <Route path='/errors' element={<TestErrors />} />

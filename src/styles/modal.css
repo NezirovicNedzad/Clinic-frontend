@@ -1,0 +1,121 @@
+
+.modalBackground {
+    width: 70vw;
+
+
+    position: fixed;
+    top:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    border-radius: 9px;
+
+  }
+
+  .modalContainer {
+    width: 90%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: white;
+ 
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+ 
+    padding: 25px 10px;
+  }
+  
+  .modalContainer .title {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .modalContainer .body {
+   
+    font-size: 1.3rem;
+   
+  }
+  
+  .modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer .footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .cancelBtn {
+    background-color: crimson;
+  }
+  #naslov{
+    font-size: 25px;
+    color:rgb(87, 87, 87)
+  }
+  .novi22{
+    padding: 1.2rem;
+  }
+
+
+  
+@media (max-width: 770px) {
+  .modalContainer h1 {
+  font-size: 1.3rem;
+  }
+ 
+  .modalContainer .body{
+    font-size: 1rem;
+  }
+  #naslov{
+    font-size: 1.2rem;
+  }
+
+  label{
+    font-size: 1rem;
+  }
+  .novi22{
+    font-size: 15px;
+  }
+
+}
+  
+@media (max-width: 380px) {
+  .modalContainer {
+top: 60px;
+  }
+
+
+}
+
+#x{
+  background-color: #e70b0b;
+  color:white;
+ 
+}
+
+#x:hover{
+  background-color: black;
+  
+}

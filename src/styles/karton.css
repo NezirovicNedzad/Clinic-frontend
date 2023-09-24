@@ -1,0 +1,430 @@
+.forma{
+    padding: 3rem 1rem;
+   
+}
+
+.forma label{
+    font-size: 1.7rem;
+ 
+}
+
+
+.margina{
+    margin-top:5rem;
+}
+
+.conn{
+    display: flex;
+}
+
+.conn1{
+    padding: 1rem;
+
+    
+    flex: 1;
+}
+
+.conn1 label{
+  margin-left: 3%;
+}
+.conn2{
+    padding: 1rem;
+  
+    
+    flex: 1;
+}
+
+textarea:hover{
+
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.1);
+
+    
+}
+textarea{
+    margin: 1.4rem ;
+}
+
+.podaci{
+    padding: 1rem;
+    text-align: center;
+}
+.podaci h2{
+    font-size: 3rem;
+    margin: 2rem 0;
+    color:#43b9dc;
+
+}
+.podaci h3{
+    font-size: 2.5rem;
+    letter-spacing: 0.1rem;
+    margin: 1rem 0;
+    color:#43b9dc;
+
+
+}
+.podaci p{
+   margin:0.6rem;
+    font-size:1.5rem;
+}
+.slika{
+    border-radius: 2000px;
+    height: 300px;
+    width: 300px;
+}
+
+.btn1{
+    padding:1rem ;
+    font-size:1.9rem;
+    background-color: #43b9dc;
+    color:white;
+    border-radius: 7px;
+    margin:1rem;
+}
+.btn1 i{
+    color:white
+}
+
+.od{
+    margin:2.4rem 0;
+}
+
+.btn1:hover{
+    background-color: black;
+}
+
+
+.naslovi{
+    font-size: 1.9rem;
+    font-weight: 600;
+    color:#43b9dc;
+}
+
+
+.flex2{
+    flex:2;
+    padding-top: 4rem;
+}
+
+.flex5{
+    flex:5;
+ 
+   
+}
+
+
+
+.ok2{
+    display: flex;
+}
+
+
+.inf p
+{
+
+    font-size: 1.5rem;
+}
+
+.inf p{
+    margin: 1rem 0;
+   
+}
+
+.inf p:hover{
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+}
+
+
+.id2{
+    font-weight: 600;
+    color:#43b9dc;
+
+    
+}
+
+
+
+
+.overlay{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(92,95,236,0.6);
+    display: flex;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.buy-btn{
+
+    width:160px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#34d3b4;
+    color: #252525;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: calibri;
+    color:white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+
+}
+
+.buy-btn:hover{
+color:black ;
+background-color: white;
+}
+
+.product {
+    position: relative;
+
+    padding: 20px;
+    border-radius: 10px;
+  
+    font-family: 'Lato', sans-serif!important;
+  }
+  
+  .product-category {
+    padding: 0 1.2rem;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 2.2rem;
+    color: #43b9dc;
+    border-radius: 1rem;
+    text-transform: capitalize;
+  }
+  
+  .product-container {
+    padding: 0 1rem;
+    display: flex;
+   margin-left: 40px;
+
+    scroll-behavior: smooth;
+    
+  }
+  
+  .product-container::-webkit-scrollbar  {
+    display: none;
+  }
+
+  .product-card {
+    
+    width: 450px!important;
+    height: 450px!important;
+  
+   background-color: white;
+   
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+  margin: auto;
+  }
+  
+  
+  .product-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+ 
+  }
+  
+  .product-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 300px;
+  }
+  
+
+  
+  .card-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    width: 90%;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    background: #34d3b4;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 0;
+  }
+  
+  .product-card:hover .card-btn {
+    opacity: 1;
+  }
+  .product-card:hover .overlay{
+      opacity: 1;
+  }
+  .card-btn:hover {
+    background: #ff7d7d;
+    color: #fff;
+  }
+  
+  .product-info {
+    width: 100%;
+  box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    
+  
+  }
+  
+  .product-info p {
+ font-size: 1.1rem;
+    
+  
+  }
+  
+  .product-brand {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0.4rem 0;
+  }
+  
+  .product-short-description {
+    width: 100%;
+    height: 20px;
+  
+     padding: 1.2rem;
+    
+    margin: 5px 0;
+    font-size: 1.5rem;
+  }
+  
+  .price {
+    font-weight: 900;
+    font-size: 20px;
+  }
+  
+  .actual-price {
+    margin-left: 20px;
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+  
+  .pre-btn,
+  .nxt-btn {
+    border: none;
+    width: 5vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+    cursor: pointer;
+    z-index: 8;
+  }
+  
+  .pre-btn {
+    left: 0;
+    transform: rotate(180deg);
+  }
+  
+  .nxt-btn {
+    right: 0;
+  }
+  
+  .pre-btn img,
+  .nxt-btn img {
+    opacity: 0.2;
+  }
+  
+  .pre-btn:hover img,
+  .nxt-btn:hover img {
+    opacity: 1;
+  }
+  * {
+
+    scrollbar-width: none; /* Firefox implementation */
+
+}
+  .pre-btn:focus,
+  .nxt-btn:focus{
+      border: none;
+      outline: none;
+  }
+  .collection-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  
+  .collection {
+    position: relative;
+  }
+  
+  .collection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .collection p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+    text-transform: capitalize;
+  }
+  
+  .collection:nth-child(3) {
+    grid-column: span 2;
+    margin-bottom: 10px;
+  }
+  
+  .opis {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+  }
+  .opis2 {
+    
+    padding: 1.2rem;
+    font-size: 1.5rem;
+
+  }
+
+
+  .img-circle{
+    border-radius: 2000px;
+    height: 300px;
+    width: 300px;
+  }
+.anam{
+    margin: 3rem 1rem;
+}
+  
+
+.wd1{
+  display: flex;
+}
+
+.sd1{
+  flex:25;
+  margin-left: 3rem;
+}
+.sd2{
+  flex: 1;
+font-size: 3.5rem;
+
+}
+

@@ -9,7 +9,7 @@ body, html {
 }
 
 .navAdmin {
-   height: 100vh;
+   height: 100%;
     background-color: #f0f0f0;
 }
 
@@ -18,7 +18,28 @@ body, html {
     height: 50px;
     margin-top: 20px;
 }
+.istorija{
 
+    background-color: #198754!important;
+    color:white;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+.otpusti{
+    float: right;
+}
+
+.otpusti:hover{
+    background-color: inherit;
+}
+.promeni{
+
+    background-color: #dc3f2a!important;
+    color:white;
+    padding: 0.5rem 2rem;
+    
+    font-size: 1rem;
+}
 .adminImage {
     display: flex;
     justify-content: center !important;
@@ -75,16 +96,17 @@ body, html {
     line-height: 55px !important;
 }
 
-.padding0 ul :hover {
-    font-size: 22px;
-    cursor: pointer;
-}
+
 
 .activeNav {
     border-left: 3px solid #0082e6;
     background-color: #ddd6d6;
 }
 
+.dodajP{
+    background-color: #0082e6;
+ 
+ }
 
 .faIcons { 
     width: 30px;
@@ -92,6 +114,10 @@ body, html {
     margin-right: 4px;
 }
 
+
+.svg-inline--fa.fa-lg{
+    height: 1.7rem;
+}
 /* admin info */
 .adminInfo h1 {
     text-align: center;

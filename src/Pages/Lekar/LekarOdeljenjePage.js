@@ -11,7 +11,7 @@ import adminImage from "../../images/user-gear.png";
 import krevetImage from "../../images/krevet.png"
 import users from "../../images/group.png";
 import profile from "../../images/user.png";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { listPacijentOdeljenja } from "../../actions/pacijentActions";
 import "../../styles/adminProfilePage.css"
 const LekarOdeljenjePage = () => {
@@ -22,7 +22,7 @@ const LekarOdeljenjePage = () => {
   const params=useParams();
 
   const id=params.id;
-    
+    const navigate=useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
     const [brojk, setBrojKreveta] = useState(0);
   
@@ -47,8 +47,8 @@ const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
       
     },[dispatch, id, odeljenje])
   
-    const toggleDropdown = () => {
-      setShowDropdown(!showDropdown);
+    const toKarton = (Nid) => {
+      navigate(`/profile-lekar/${id}/${Nid}`);
     };
   
 
@@ -60,13 +60,13 @@ const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
         <Container fluid > 
         <Row>
           <Col md={3} className='padding0'>
-            <div  style={{height:"100vh"}} className='navAdmin'>
+            <div className='navAdmin'>
               <div className='adminImage'>
                 <Image fluid src={doctorImage} />
               </div>
               <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
               <p>{userInfo.role}</p>
-
+              <p style={{textTransform:"none"}}>Specijalizacija:<span style={{textTransform:"capitalize"}}>{userInfo.specijalizacija}</span></p>
               <h3>Opcije</h3>
 
               <ul>
@@ -128,7 +128,7 @@ odeljenje.brojPacijenata>0  ?
  < p style={{color:"white",textAlign:"center",fontSize:"13px"}}>{index+1+odeljenje.brojKreveta-odeljenje.brojPacijenata} {pacijent.prezime}</p>
  < p style={{color:"white",textAlign:"center",fontSize:"12px"}}>{pacijent.jmbg}</p>
    
-<Container style={{display:"flex",justifyContent:"center"}}>   <button  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  </Container>
+<Container style={{display:"flex",justifyContent:"center"}}>   <button onClick={()=>toKarton(pacijent.id)}  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  </Container>
 </Container> : <></> 
 
 
