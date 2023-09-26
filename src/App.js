@@ -20,7 +20,7 @@ import AdminSestrice from "./Pages/Admin/AdminSestrice";
 import AdminListaKorisnika from "./Pages/Admin/AdminListaKorisnika";
 import AdminUkloniOdeljenje from "./Pages/Admin/AdminUkloniOdeljenje";
 import AdminDodajOdeljenje from "./Pages/Admin/AdminDodajOdeljenje";
-import LekarKarton from "./Pages/Lekar/LekarKartonPage";
+
 import LekarKartonPage from "./Pages/Lekar/LekarKartonPage";
 
 function App() {
