@@ -22,6 +22,8 @@ import AdminUkloniOdeljenje from "./Pages/Admin/AdminUkloniOdeljenje";
 import AdminDodajOdeljenje from "./Pages/Admin/AdminDodajOdeljenje";
 
 import LekarKartonPage from "./Pages/Lekar/LekarKartonPage";
+import LekarIstorijaPacijenta from "./Pages/Lekar/LekarIstorijaPacijenta";
+import LekarPremestiPacijenta from "./Pages/Lekar/LekarPremestiPacijenta";
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
         <Route path='/profile-lekar/:id/:pacijentId' element={<LekarKartonPage />} />
         <Route path='/profile-lekar' element={<LekarProfilePage />} />
         <Route path='/profile-sestra' element={<ProfilePage />} />
+        <Route path="/profile-lekar/pacijent-istorija/:id/:pacijentId" element={<LekarIstorijaPacijenta/>}/>
+        <Route path="/profile-lekar/pacijent-premesti/:id/:pacijentId" element={<LekarPremestiPacijenta/>}/>
         <Route path='/errors' element={<TestErrors />} />
 
         <Route path='/not-found' element={<NotFound />} />

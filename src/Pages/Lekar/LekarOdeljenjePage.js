@@ -92,30 +92,9 @@ const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
                 <h3 style={{textAlign:"center",color:"white",paddingTop:"0.7rem"}}>{odeljenje.naziv}</h3>
                     
           <Container style={{display:"flex",flexWrap:"wrap"}} >
-                {object1.map((contact,index)=>
-          <>
-         
-        
-
-          {index <  odeljenje.brojKreveta-odeljenje.brojPacijenata && 
-          <Container className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"white"}}>
-           
-          
-          <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
-       
-          <p style={{color:"black",textAlign:"center"}}>{index +1 }</p>
-         </Container>  
-         
- 
-         } 
-               
-                </>        
 
 
-
-                )}
-
-{pacijenti.map((pacijent,index)  =>  (
+          {pacijenti.map((pacijent,index)  =>  (
 
 odeljenje.brojPacijenata>0  ?
 
@@ -125,7 +104,7 @@ odeljenje.brojPacijenata>0  ?
   <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
 
 
- < p style={{color:"white",textAlign:"center",fontSize:"13px"}}>{index+1+odeljenje.brojKreveta-odeljenje.brojPacijenata} {pacijent.prezime}</p>
+ < p style={{color:"white",textAlign:"center",fontSize:"13px"}}>{index+1} {pacijent.prezime}</p>
  < p style={{color:"white",textAlign:"center",fontSize:"12px"}}>{pacijent.jmbg}</p>
    
 <Container style={{display:"flex",justifyContent:"center"}}>   <button onClick={()=>toKarton(pacijent.id)}  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  </Container>
@@ -136,6 +115,30 @@ odeljenje.brojPacijenata>0  ?
 
 
   ))}    
+
+
+                {object1.map((contact,index)=>
+          <>
+         
+        
+
+          {index <  odeljenje.brojKreveta-odeljenje.brojPacijenata && 
+          <Container className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"white"}}>
+          
+          
+          <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
+       
+          <p style={{color:"black",textAlign:"center"}}>{index+pacijenti.length +1 }</p>
+         </Container>  
+         
+ 
+         } 
+               
+                </>        
+
+
+
+                )}
             </Container>
 
              

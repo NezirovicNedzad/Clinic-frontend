@@ -94,12 +94,14 @@ navigate(`/profile-lekar/${id}`)
               
               <button  onClick={() => selectedOdeljenje(odeljenje.id)} className='dugme1'>
 <Container  style={{backgroundColor: `${boje[i]}`,width:"22rem",padding:"10px",
-   height:"10.2rem",
+   height:"10.5rem",
     textAlign:"center",
     borderRadius:"0.7rem"
    }} >
-
-<h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+ <Container style={{display:"flex",flexDirection:"column"}}>
+     <div>{odeljenje.id===userInfo.odeljenjeId ?  <p style={{float:"right"}} >Ovde radite!</p> :<></>}</div> 
+ <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+      </Container>
 <p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
 <p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
@@ -123,10 +125,12 @@ navigate(`/profile-lekar/${id}`)
    
     textAlign:"center",
     borderRadius:"0.7rem",
-    height:"11.7rem"
+    height:"12rem"
   }} >
-
-<h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+ <Container style={{display:"flex",flexDirection:"column"}}>
+     <div>{odeljenje.id===userInfo.odeljenjeId ?  <p style={{float:"right"}} >Ovde radite!</p> :<></>}</div> 
+ <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+      </Container>
 <p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
 <p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
@@ -142,17 +146,19 @@ navigate(`/profile-lekar/${id}`)
 </Container>
 </button>
 : odeljenje.brojKreveta >20 && odeljenje.brojKreveta<=25 ?
- 
+           
  
  <button  onClick={() => selectedOdeljenje(odeljenje.id)} className='dugme1'>
 <Container  style={{backgroundColor: `${boje[i]}`,width:"29rem",padding:"10px",
    
     textAlign:"center",
     borderRadius:"0.7rem",
-    height:"15rem"
+    height:"15.5rem"
    }} >
-
-<h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+ <Container style={{display:"flex",flexDirection:"column"}}>
+     <div>{odeljenje.id===userInfo.odeljenjeId ?  <p style={{float:"right"}} >Ovde radite!</p> :<></>}</div> 
+ <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+      </Container>
 <p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
 <p style={{color:'white'}}>Ukupno mesta</p>
 {object1= Array(odeljenje.brojKreveta).fill()}
@@ -175,10 +181,13 @@ navigate(`/profile-lekar/${id}`)
     
      textAlign:"center",
      borderRadius:"0.7rem",
-     height:"17rem"
+     height:"17.1rem"
     }} >
- 
+      <Container style={{display:"flex",flexDirection:"column"}}>
+     <div>{odeljenje.id===userInfo.odeljenjeId ?  <p style={{float:"right"}} >Ovde radite!</p> :<></>}</div> 
  <h4 style={{color:'white'}}>{odeljenje.naziv}</h4>
+      </Container>
+ 
  <p style={{color:'white'}}>Dostupnih mesta: {odeljenje.brojKreveta-odeljenje.brojPacijenata} - Broj pacijenata:{odeljenje.brojPacijenata}</p>
 <p style={{color:'white'}}>Ukupno mesta</p>
  {object1= Array(odeljenje.brojKreveta).fill()}

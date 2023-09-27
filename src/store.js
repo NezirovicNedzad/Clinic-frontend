@@ -19,7 +19,7 @@ import {
   UkloniKorisnikaReducers,
 } from "./reducers/korisnickiReducer";
 import { listPacijentiOdeljenjaReducers, pacijentDetailsReducers } from "./reducers/pacijentiReducer";
-import { kartoniDetailsReducers } from "./reducers/kartoniReducers";
+import { kartoniDetailsReducers, kartoniPacijentducers } from "./reducers/kartoniReducers";
 import {  pregledCreateReducers } from "./reducers/preglediReducers";
 
 const reducer = combineReducers({
@@ -35,6 +35,7 @@ const reducer = combineReducers({
   pacijentiListReducer: listPacijentiOdeljenjaReducers,
   pacijentDetails:pacijentDetailsReducers,
   kartoniList:kartoniDetailsReducers,
+  kartoniPacijent:kartoniPacijentducers,
   pregledCreate:pregledCreateReducers
 });
 

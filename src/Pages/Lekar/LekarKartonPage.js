@@ -4,7 +4,7 @@ import Card from '../../Components/Card';
 import { useDispatch, useSelector } from "react-redux";
 import { DetailsOdeljenje,listOdeljenja } from "../../actions/odeljenjaActions";
 import { FaBook} from "react-icons/fa";
-import { faAddressCard,faBook,faPlus,faCircleExclamation,faDeleteLeft,faShare} from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard,faBook,faPlus,faCircleExclamation,faDeleteLeft,faShare,faNotesMedical} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import doctorImage from "../../images/lekar.png";
 import pacientImage from "../../images/user.png"
@@ -27,6 +27,8 @@ import { PREGLED_CREATE_RESET } from '../../constants/pregledConstants';
 
 const LekarKartonPage = () => {
 
+
+  const navigate=useNavigate();
 const dispatch=useDispatch ();
 const[openModal,setOpenModal]=useState(false)
 const params=useParams();
@@ -60,6 +62,15 @@ const toggleDropdownLekari = () => {
   setShowDropdownLekari(!showDropdownLekari);
 };
 
+const toNav=(link)=>{
+
+  navigate(`/profile-lekar/${link}/${idO}/${idPacijent}`);
+}
+
+const toNav2=()=>{
+
+  navigate(`/profile-lekar/${idO}/${idPacijent}`);
+}
 const customSort=(a,b) =>{
 
   const dateA=new Date(a.vremePregleda);
@@ -125,6 +136,10 @@ dispatch(listKartona(idO,idPacijent));
            
 
               <ul style={{marginTop:"1rem"}}>
+              <li onClick={()=>toNav2()} style={{marginLeft:"1rem"}}
+                  className='navAdminLine activeNav'>
+                Karton  <FontAwesomeIcon style={{ marginRight: "0.6rem"}}  icon={faNotesMedical } size='lg' />
+                </li>
               <li style={{marginLeft:"1rem"}}
                     className='navAdminLine'
                     onClick={toggleDropdownLekari}
@@ -153,18 +168,18 @@ dispatch(listKartona(idO,idPacijent));
                   )}
                   <li style={{marginLeft:"1rem",marginBottom:"0.5rem"}}>Napomene <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faCircleExclamation} /></li>
                 
-{userInfo.id===lekar.id ?<> <li style={{marginBottom:"0.5rem",marginLeft:"1rem"}} className="navAdminLine" >
+{userInfo.id===lekar.id ?<> <li onClick={()=>toNav("pacijent-istorija")} style={{marginBottom:"0.5rem",marginLeft:"1rem"}} className="navAdminLine" >
 
          Istorija pacijenta  <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faBook} />
             
                 </li>
                 
-                <li style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
-                <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar:</span></h4>
+                <li  className='navAdminLine' onClick={()=>toNav("pacijent-premesti")} style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
+                <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar na klinici:</span></h4>
              <h4 >{lekar.ime} {lekar.prezime}</h4>
                  </> : userInfo.id===lekarK.id ? <>
-                 <li style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
-                 <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar:</span></h4>
+                 <li  className='navAdminLine' onClick={()=>toNav("pacijent-premesti")} style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
+                 <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar na klinici:</span></h4>
              <h4 >{lekar.ime} {lekar.prezime}</h4>
                 
                 </> : <></>}
@@ -175,7 +190,7 @@ dispatch(listKartona(idO,idPacijent));
 
         </Col>
         <Col md={9}  >
-               <h3 style={{textAlign:"center",padding:"1.2rem"}}> Obavljeni pregledi</h3>
+               <h3 style={{textAlign:"center",padding:"0.7rem"}}> Obavljeni pregledi</h3>
 
     
     <Container style={{display:"flex",justifyContent:"center",padding:"1rem"}}>
@@ -193,7 +208,12 @@ dispatch(listKartona(idO,idPacijent));
      
      /> : null}
       <div style={{flex:"1"}}>  </div>
-     {userInfo.odeljenjeId==odeljenje.id ? <div style={{flex:"1"}}><Button onClick={()=>{setOpenModal(true)}} style={{backgroundColor:"#43b9dc",marginTop:"1rem",float:"right",marginRight:"4rem"}}>Dodaj Pregled <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faPlus} /></Button></div> :<p style={{marginTop:"1rem"}}>Trenutno ne radite na ovom odeljenju i ne mozete dodati novi pregled!</p>} 
+     {userInfo.odeljenjeId==odeljenje.id && pacijent.idOdeljenja==idO ? <div style={{flex:"1"}}><Button onClick={()=>{setOpenModal(true)}} style={{backgroundColor:"#43b9dc",marginTop:"1rem",float:"right",marginRight:"4rem"}}>Dodaj Pregled <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faPlus} /></Button></div> :
+     
+     
+     
+     
+pacijent.idOdeljenja!=idO ? <p style={{marginTop:"1rem"}}>Karton na odeljenju je arhiviran i ne može se menjati!</p> :<p style={{marginTop:"1rem"}}>Trenutno ne radite na ovom odeljenju i ne mozete dodati novi pregled!</p>} 
     </div>
 
 
