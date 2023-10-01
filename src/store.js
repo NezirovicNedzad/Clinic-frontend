@@ -22,11 +22,9 @@ import {
 import {
   listPacijentiOdeljenjaReducers,
   pacijentDetailsReducers,
-  pacijentDodajReducers,
 } from "./reducers/pacijentiReducer";
 import { kartoniDetailsReducers } from "./reducers/kartoniReducers";
 import { pregledCreateReducers } from "./reducers/preglediReducers";
-import { napomenaCreateReducers } from "./reducers/napomeneReducers";
 
 const reducer = combineReducers({
   odeljenjaList: listOdeljenjaReducers,
@@ -41,10 +39,8 @@ const reducer = combineReducers({
   korisnickiLogin: KorisnickiLoginReducers,
   pacijentiListReducer: listPacijentiOdeljenjaReducers,
   pacijentDetails: pacijentDetailsReducers,
-  pacijentCreate: pacijentDodajReducers,
   kartoniList: kartoniDetailsReducers,
   pregledCreate: pregledCreateReducers,
-  napomenaCreate: napomenaCreateReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

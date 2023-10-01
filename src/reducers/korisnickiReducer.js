@@ -54,7 +54,7 @@ export const DodajKorisnikaReducers = (state = {}, action) => {
   }
 };
 
-export const ListaKorisnikaReducers = (state = {}, action) => {
+export const ListaKorisnikaReducers = (state = {korisnici:[]}, action) => {
   switch (action.type) {
     case KORISNICI_LIST_REQUEST:
       return { loading: true };
