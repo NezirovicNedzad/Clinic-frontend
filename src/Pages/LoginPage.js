@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
-
+import Message from "../Components/Message";
 import { useNavigate } from "react-router-dom";
 import FormContainer from "../Components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,27 +18,22 @@ const LoginPage = () => {
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
-  const { userInfo, success } = korisnickiLogin;
+  const { userInfo, success, error } = korisnickiLogin;
 
   const navigate = useNavigate();
   const redirect = "/profil";
   useEffect(() => {
-    if (userInfo && userInfo.role=="Admin") {
+    if (userInfo && userInfo.role === "Admin") {
       navigate("/profile-admin");
-    }
-    else if(userInfo && userInfo.role=="Lekar")
-    {
+    } else if (userInfo && userInfo.role === "Lekar") {
       navigate("/profile-lekar");
+    } else if (userInfo && userInfo.role === "Sestra") {
+      navigate("/odeljenja-sestra");
     }
-    else if(userInfo && userInfo.role=="Sestra")
-    {
-      navigate("/profile-sestra");
+    if (success) {
+      setEmail("");
+      setPassword("");
     }
-    if(success)
-    {  setEmail("")
-    setPassword("")}
-    
-  
   }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
@@ -46,16 +41,15 @@ const LoginPage = () => {
 
     dispatch(login(email, password));
     if (success) {
-     
       navigate("/odeljenja");
     }
-    
   };
 
   return (
     <Container fluid>
       <FormContainer>
         <h1 style={{ color: "#111", textAlign: "center" }}>Prijavi se</h1>
+        {error && <Message variant={"danger"}>{error}</Message>}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='email'>
             <Form.Label className='labelLoginP'>Email Adresa</Form.Label>

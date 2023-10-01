@@ -16,11 +16,17 @@ import {
   DodajKorisnikaReducers,
   KorisnickiLoginReducers,
   ListaKorisnikaReducers,
+  ListaLekaraReducers,
   UkloniKorisnikaReducers,
 } from "./reducers/korisnickiReducer";
-import { listPacijentiOdeljenjaReducers, pacijentDetailsReducers } from "./reducers/pacijentiReducer";
+import {
+  listPacijentiOdeljenjaReducers,
+  pacijentDetailsReducers,
+  pacijentDodajReducers,
+} from "./reducers/pacijentiReducer";
 import { kartoniDetailsReducers } from "./reducers/kartoniReducers";
-import {  pregledCreateReducers } from "./reducers/preglediReducers";
+import { pregledCreateReducers } from "./reducers/preglediReducers";
+import { napomenaCreateReducers } from "./reducers/napomeneReducers";
 
 const reducer = combineReducers({
   odeljenjaList: listOdeljenjaReducers,
@@ -30,12 +36,15 @@ const reducer = combineReducers({
   odeljenjaUpdate: odeljenjeUpdateReducer,
   dodajKorisnikaState: DodajKorisnikaReducers,
   korisniciList: ListaKorisnikaReducers,
+  lekariList: ListaLekaraReducers,
   korisniciUkloni: UkloniKorisnikaReducers,
   korisnickiLogin: KorisnickiLoginReducers,
   pacijentiListReducer: listPacijentiOdeljenjaReducers,
-  pacijentDetails:pacijentDetailsReducers,
-  kartoniList:kartoniDetailsReducers,
-  pregledCreate:pregledCreateReducers
+  pacijentDetails: pacijentDetailsReducers,
+  pacijentCreate: pacijentDodajReducers,
+  kartoniList: kartoniDetailsReducers,
+  pregledCreate: pregledCreateReducers,
+  napomenaCreate: napomenaCreateReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

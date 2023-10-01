@@ -22,6 +22,11 @@ import AdminUkloniOdeljenje from "./Pages/Admin/AdminUkloniOdeljenje";
 import AdminDodajOdeljenje from "./Pages/Admin/AdminDodajOdeljenje";
 import LekarKarton from "./Pages/Lekar/LekarKartonPage";
 import LekarKartonPage from "./Pages/Lekar/LekarKartonPage";
+import SestraOdeljenjePage from "./Pages/Sestra/SestraOdeljenjePage";
+import SestraOdeljenjeDetails from "./Pages/Sestra/SestraOdeljenjeDetails";
+import SestraKartonPage from "./Pages/Sestra/SestraKartonPage";
+import SestraPregledi from "./Pages/Sestra/SestraPregledi";
+import DodajPacijenta from "./Pages/Sestra/DodajPacijenta";
 
 function App() {
   return (
@@ -48,9 +53,29 @@ function App() {
 
         <Route path='/profile-lekar/odeljenje' element={<ProfilePage />} />
         <Route path='/profile-lekar/:id' element={<LekarOdeljenjePage />} />
-        <Route path='/profile-lekar/:id/:pacijentId' element={<LekarKartonPage />} />
+        <Route
+          path='/profile-lekar/:id/:pacijentId'
+          element={<LekarKartonPage />}
+        />
         <Route path='/profile-lekar' element={<LekarProfilePage />} />
         <Route path='/profile-sestra' element={<ProfilePage />} />
+
+        <Route path='/odeljenja-sestra' element={<SestraOdeljenjePage />} />
+        <Route path='/dodaj-pacijenta-sestra' element={<DodajPacijenta />} />
+        <Route
+          path='/odeljenja-sestra/:id'
+          element={<SestraOdeljenjeDetails />}
+        />
+        <Route
+          path='/odeljenja-sestra/:id/:pacijentId'
+          element={<SestraKartonPage />}
+        />
+
+        <Route
+          path='/pregledi-sestra/:id/:pacijentId'
+          element={<SestraPregledi />}
+        />
+
         <Route path='/errors' element={<TestErrors />} />
 
         <Route path='/not-found' element={<NotFound />} />

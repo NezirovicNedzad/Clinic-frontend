@@ -5,90 +5,99 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader";
 
 import { listOdeljenja } from "../../actions/odeljenjaActions";
+import { listaLekara } from "../../actions/korisniciActions";
 
-import {
-  FaGripHorizontal,
-  FaList,
-  FaUser,
-  FaUserPlus,
-  FaUsers,
-} from "react-icons/fa";
+import { FaList, FaUser, FaUserPlus, FaUsers } from "react-icons/fa";
 
 import adminImage from "../../images/user-gear.png";
 
-import "../../styles/adminProfilePage.css";
-import { dodajKorisnika } from "../../actions/korisniciActions";
-import Message from "../../Components/Message";
+import { dodajPacijenta } from "../../actions/pacijentActions";
 
-export default function AdminLekari() {
+import "../../styles/adminProfilePage.css";
+
+export default function DodajPacijenta() {
   const navigate = useNavigate();
 
   const [selectedOdeljenje, setSelectedOdeljenje] = useState("");
-  const [selectedSpecijalizacija, setSelectedSpecijalizacija] = useState("");
+  const [greskaPacijent, setGreskaPacijent] = useState("");
+  const [godine, setGodine] = useState(0);
+  const [selectedLekar, setSelectedLekar] = useState(null);
 
   const [formData, setFormData] = useState({
     ime: "",
     prezime: "",
-    email: "",
-    username: "",
-    password: "",
-    role: "Lekar",
+    jmbg: "",
+    pol: "",
+    idLekara: "",
+    idOdeljenja: "",
   });
 
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
+
+  const odeljenjaDetail = useSelector((state) => state.odeljenjaDetails);
+
   const listaOdeljenja = useSelector((state) => state.odeljenjaList);
   const { loading: loadingList, error: errorList, odeljenja } = listaOdeljenja;
-  const dodajKorisnikaAdmin = useSelector((state) => state.dodajKorisnikaState);
 
-  const { loading, error, success } = dodajKorisnikaAdmin;
+  const listaLekaraR = useSelector((state) => state.lekariList);
+  const { lekari } = listaLekaraR;
+
+  const dodajPacijentaR = useSelector((state) => state.pacijentCreate);
+  const { loading, error, success } = dodajPacijentaR;
 
   const dispatch = useDispatch();
 
   const { userInfo } = korisnickiLogin;
 
-  const [showDropdownLekari, setShowDropdownLekari] = useState(false);
-  const [showDropdownOdeljenja, setShowDropdownOdeljenja] = useState(false);
+  const lekarii =
+    lekari && lekari.filter((korisnik) => korisnik.role === "Lekar");
 
   useEffect(() => {
-    const selectedOdeljenjeObj = odeljenja.find(
-      (odeljenje) => odeljenje.id === selectedOdeljenje
-    );
+    dispatch(listaLekara());
 
-    if (selectedOdeljenjeObj) {
-      setSelectedSpecijalizacija(selectedOdeljenjeObj.specijalizacijaNaziv);
+    if (selectedOdeljenje) {
+      const selectedOdeljenjeId = selectedOdeljenje.toLowerCase();
+      const lekariZaOdeljenje =
+        lekarii &&
+        lekarii.filter(
+          (lekar) =>
+            lekar.odeljenjeId.toLowerCase() === selectedOdeljenjeId &&
+            lekar.role === "Lekar"
+        );
+      setSelectedLekar(lekariZaOdeljenje[0] || null);
     } else {
-      setSelectedSpecijalizacija("");
+      setSelectedLekar(null);
     }
 
     if (success) {
       setFormData({
         ime: "",
         prezime: "",
-        email: "",
-        username: "",
-        password: "",
-        role: "Lekar",
+        jmbg: "",
+        idLekara: "",
+        idOdeljenja: "",
       });
-      // setSelectedOdeljenje("");
-      // setSelectedSpecijalizacija("");
     }
-  }, [selectedOdeljenje, selectedSpecijalizacija, odeljenja, success]);
+  }, [selectedOdeljenje, success, dispatch]);
 
   useEffect(() => {
     dispatch(listOdeljenja());
   }, [dispatch]);
 
-  const toggleDropdownLekari = () => {
-    setShowDropdownLekari(!showDropdownLekari);
-  };
-
-  const toggleDropdownOdeljenja = () => {
-    setShowDropdownOdeljenja(!showDropdownOdeljenja);
-  };
-
   const handleOdeljenjeChange = (e) => {
     const selectedOdeljenjeId = e.target.value;
     setSelectedOdeljenje(selectedOdeljenjeId);
+
+    if (selectedOdeljenjeId) {
+      const selectedLekarObj = lekarii.find(
+        (lekar) =>
+          lekar.odeljenjeId.toLowerCase() === selectedOdeljenjeId.toLowerCase()
+      );
+
+      setSelectedLekar(selectedLekarObj || null);
+    } else {
+      setSelectedLekar(null);
+    }
   };
 
   const toNav = (naziv) => {
@@ -106,24 +115,33 @@ export default function AdminLekari() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { ime, prezime, email, username, password, role } = formData;
-
-    dispatch(
-      dodajKorisnika(
-        email,
-        password,
-        role,
-        ime,
-        prezime,
-        username,
-        selectedSpecijalizacija,
-        selectedOdeljenje
-      )
-    );
-
-    setTimeout(function () {
-      window.location.reload();
-    }, 1000);
+    const { ime, prezime, jmbg, pol } = formData;
+    if (
+      selectedLekar === "" ||
+      ime === "" ||
+      prezime === "" ||
+      jmbg === "" ||
+      pol === "" ||
+      godine === "" ||
+      selectedOdeljenje === ""
+    ) {
+      setGreskaPacijent("Sva polja su obavezna.");
+    } else {
+      dispatch(
+        dodajPacijenta(
+          ime,
+          prezime,
+          jmbg,
+          godine,
+          pol,
+          selectedLekar.id,
+          selectedOdeljenje
+        )
+      );
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
+    }
   };
 
   return (
@@ -132,7 +150,7 @@ export default function AdminLekari() {
         <Loader />
       ) : loading ? (
         <Loader />
-      ) : userInfo.role === "Admin" ? (
+      ) : userInfo.role === "Sestra" ? (
         <Container fluid>
           <Row>
             <Col md={3} className='padding0'>
@@ -146,56 +164,31 @@ export default function AdminLekari() {
                 <h3>Opcije</h3>
 
                 <ul className='mt-3'>
-                  <li
-                    onClick={() => toNav("profile-admin")}
-                    className='navAdminLine '
-                  >
+                  <li className='navAdminLine'>
                     <FaUser className='faIcons' />
                     Profil
-                  </li>{" "}
-                  <li
-                    className='navAdminLine activeNav'
-                    onClick={toggleDropdownLekari}
-                  >
-                    <FaUsers className='faIcons' /> Korisnici ▼
                   </li>
-                  {showDropdownLekari && (
-                    <ul style={{ marginLeft: "50px" }}>
-                      <li
-                        className='activeNav'
-                        onClick={() => toNav("lekari-admin")}
-                      >
-                        Lekari
-                      </li>
-
-                      <li onClick={() => toNav("sestrice-admin")}>Sestrice</li>
-                      <li onClick={() => toNav("lista-korisnika-admin")}>
-                        Lista korisnika
-                      </li>
-                    </ul>
-                  )}
                   <li
+                    onClick={() => toNav("odeljenja-sestra")}
                     className='navAdminLine'
-                    onClick={toggleDropdownOdeljenja}
                   >
-                    <FaGripHorizontal className='faIcons' /> Odeljenja ▼
+                    <FaList className='faIcons' />
+                    Lista odeljenja
                   </li>
-                  {showDropdownOdeljenja && (
-                    <ul style={{ marginLeft: "50px" }}>
-                      <li onClick={() => toNav("dodaj-odeljenja-admin")}>
-                        Dodaj
-                      </li>
-
-                      <li onClick={() => toNav("odeljenja-admin")}>Ukloni</li>
-                    </ul>
-                  )}
+                  <li
+                    onClick={() => toNav("dodaj-pacijenta-sestra")}
+                    className='navAdminLine activeNav'
+                  >
+                    <FaUsers className='faIcons' />
+                    Dodaj pacijenta
+                  </li>
                 </ul>
               </div>
             </Col>
             <Col md={9}>
               <div className='adminInfo'>
                 <h1>
-                  Dodaj lekara <FaUserPlus />
+                  Dodaj pacijenta <FaUserPlus />
                 </h1>
                 <div
                   style={{
@@ -205,15 +198,20 @@ export default function AdminLekari() {
                     flexDirection: "column",
                   }}
                 >
+                  {greskaPacijent && (
+                    <div className='error-container'>
+                      <div className='error-message'>
+                        <div className='error-box'>{greskaPacijent}</div>
+                      </div>
+                    </div>
+                  )}
                   {error && (
-                    <div>
+                    <div className='error-container'>
                       {Array.isArray(error)
                         ? error.map((errorObject, index) => (
-                            <div key={index}>
-                              <div>
-                                <Message variant={"danger"}>
-                                  {errorObject.description}
-                                </Message>
+                            <div className='error-message' key={index}>
+                              <div className='error-box'>
+                                {errorObject.description}
                               </div>
                             </div>
                           ))
@@ -221,11 +219,9 @@ export default function AdminLekari() {
                             ([fieldName, errorMessages]) => (
                               <div key={fieldName}>
                                 {errorMessages.map((errorMessage, index) => (
-                                  <div key={index}>
-                                    <div>
-                                      <Message variant={"danger"}>
-                                        {errorMessage}
-                                      </Message>
+                                  <div className='error-message' key={index}>
+                                    <div className='error-box'>
+                                      {errorMessage}
                                     </div>
                                   </div>
                                 ))}
@@ -236,7 +232,7 @@ export default function AdminLekari() {
                   )}
 
                   {success && (
-                    <div className='successMessage'>Uspešno dodat lekar</div>
+                    <div className='successMessage'>Uspešno dodat pacijent</div>
                   )}
 
                   <Form onSubmit={handleSubmit}>
@@ -266,13 +262,13 @@ export default function AdminLekari() {
 
                     <Row>
                       <Form.Group className='mb-3' controlId='formBasicEmail'>
-                        <Form.Label className='formLabel'>Email</Form.Label>
+                        <Form.Label className='formLabel'>Jmbg</Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='email'
+                          name='jmbg'
                           onChange={handleInputChange}
-                          type='email'
-                          value={formData.email}
+                          type='text'
+                          value={formData.jmbg}
                         />
                       </Form.Group>
 
@@ -299,73 +295,58 @@ export default function AdminLekari() {
                       </Form.Group>
                     </Row>
                     <Row>
-                      <Form.Group className='mb-3' controlId='formBasicUloga'>
-                        <Form.Label className='formLabel'>Uloga</Form.Label>
+                      <Form.Group className='mb-3' controlId='formBasicGodine'>
+                        <Form.Label className='formLabel'>Godine</Form.Label>
 
                         <Form.Control
                           className='formControlor'
-                          name='role'
-                          onChange={handleInputChange}
-                          type='text'
-                          value={formData.role}
-                          disabled
+                          name='godine'
+                          onChange={(e) => setGodine(e.target.value)}
+                          type='number'
+                          value={godine}
                         />
                       </Form.Group>
-                      <Form.Group className='mb-3' controlId='formBasicLozinka'>
-                        <Form.Label className='formLabel'>Lozinka</Form.Label>
+                      <Form.Group className='mb-3' controlId='formBasicPol'>
+                        <Form.Label className='formLabel'>Pol</Form.Label>
                         <Form.Control
                           className='formControlor'
-                          name='password'
+                          name='pol'
                           onChange={handleInputChange}
-                          type='password'
-                          value={formData.password}
+                          type='text'
+                          value={formData.pol}
                         />
                       </Form.Group>
                     </Row>
                     <Row>
-                      <Form.Group className='mb-3' controlId='formBasicKoIme'>
-                        <Form.Label className='formLabel'>
-                          Korisničko ime
-                        </Form.Label>
-                        <Form.Control
-                          className='formControlor'
-                          name='username'
-                          onChange={handleInputChange}
-                          type='text'
-                          value={formData.username}
-                        />
-                      </Form.Group>
                       <Form.Group
                         className='mb-3'
                         controlId='formBasicSpecijalizacija'
                       >
-                        <Form.Label className='formLabel'>
-                          Specijalizacija
-                        </Form.Label>
+                        <Form.Label className='formLabel'>Lekar</Form.Label>
                         <br />
                         <Form.Select
                           className='selectControl'
                           aria-label='Default select example'
-                          onChange={handleInputChange}
-                          value={selectedSpecijalizacija}
-                          name='specijalizacija'
+                          value={selectedLekar ? selectedLekar.id : ""}
+                          name='lekar'
                           disabled={!selectedOdeljenje}
+                          onChange={handleInputChange}
                         >
-                          <option value=''>Izaberite specijalizaciju</option>
+                          <option value=''>Izaberite lekara</option>
                           {selectedOdeljenje &&
-                            odeljenja
+                            lekarii &&
+                            lekarii
                               .filter(
-                                (odeljenje) =>
-                                  odeljenje.id === selectedOdeljenje
+                                (lekar) =>
+                                  lekar.odeljenjeId.toLowerCase() ===
+                                    selectedOdeljenje.toLowerCase() &&
+                                  lekar.role === "Lekar"
                               )
-                              .map((odeljenje) => (
-                                <option
-                                  key={odeljenje.id}
-                                  value={odeljenje.specijalizacijaNaziv}
-                                >
-                                  {odeljenje.specijalizacijaNaziv}
+                              .map((lekar) => (
+                                <option key={lekar.id} value={lekar.id}>
+                                  {lekar.ime}
                                 </option>
-                              ))}{" "}
+                              ))}
                         </Form.Select>
                       </Form.Group>
                     </Row>
@@ -385,7 +366,7 @@ export default function AdminLekari() {
           </Row>
         </Container>
       ) : (
-        <h4>Nažalost samo admin ima pristup ovoj stranici.</h4>
+        <h4>Nažalost samo sestra ima pristup ovoj stranici.</h4>
       )}
     </>
   );

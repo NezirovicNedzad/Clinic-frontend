@@ -11,6 +11,7 @@ import { FaGripHorizontal, FaUser, FaUsers } from "react-icons/fa";
 import adminImage from "../../images/user-gear.png";
 
 import "../../styles/adminProfilePage.css";
+import Message from "../../Components/Message";
 
 export default function AdminDodajOdeljenje() {
   const navigate = useNavigate();
@@ -84,6 +85,10 @@ export default function AdminDodajOdeljenje() {
     } else {
       setErrorText("");
       dispatch(CreateOdeljenje(naziv, zvanje, brKreveta, brPacijenata));
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
     }
   };
 
@@ -167,12 +172,14 @@ export default function AdminDodajOdeljenje() {
                     </div>
                   )}
                   {error && (
-                    <div className='error-container'>
+                    <div>
                       {Array.isArray(error)
                         ? error.map((errorObject, index) => (
-                            <div className='error-message' key={index}>
-                              <div className='error-box'>
-                                {errorObject.description}
+                            <div key={index}>
+                              <div>
+                                <Message variant={"danger"}>
+                                  {errorObject.description}
+                                </Message>
                               </div>
                             </div>
                           ))
@@ -180,9 +187,11 @@ export default function AdminDodajOdeljenje() {
                             ([fieldName, errorMessages]) => (
                               <div key={fieldName}>
                                 {errorMessages.map((errorMessage, index) => (
-                                  <div className='error-message' key={index}>
-                                    <div className='error-box'>
-                                      {errorMessage}
+                                  <div key={index}>
+                                    <div>
+                                      <Message variant={"danger"}>
+                                        {errorMessage}
+                                      </Message>
                                     </div>
                                   </div>
                                 ))}
@@ -253,6 +262,7 @@ export default function AdminDodajOdeljenje() {
                           onChange={handleInputChange}
                           type='number'
                           value={formData.brPacijenata}
+                          disabled
                         />
                       </Form.Group>
                     </Row>

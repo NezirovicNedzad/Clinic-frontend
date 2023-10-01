@@ -106,9 +106,10 @@ export default function AdminSestrice() {
         selectedOdeljenje
       )
     );
-    console.log(formData);
-    console.log(selectedOdeljenje);
-    console.log(error);
+
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000);
   };
 
   return (
@@ -121,7 +122,7 @@ export default function AdminSestrice() {
         <Container fluid>
           <Row>
             <Col md={3} className='padding0'>
-              <div style={{height:"100vh"}} className='navAdmin'>
+              <div style={{ height: "100vh" }} className='navAdmin'>
                 <div className='adminImage'>
                   <Image fluid src={adminImage} />
                 </div>

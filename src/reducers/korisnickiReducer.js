@@ -12,6 +12,9 @@ import {
   UKLONI_KORISNIKA_REQUEST,
   UKLONI_KORISNIKA_SUCCESS,
   UKLONI_KORISNIKA_FAIL,
+  LEKAR_LIST_REQUEST,
+  LEKAR_LIST_SUCCESS,
+  LEKAR_LIST_FAIL,
 } from "../constants/korisniciConstants";
 
 export const KorisnickiLoginReducers = (state = {}, action) => {
@@ -80,6 +83,26 @@ export const UkloniKorisnikaReducers = (state = {}, action) => {
       return { loading: false, success: true };
 
     case UKLONI_KORISNIKA_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const ListaLekaraReducers = (state = {}, action) => {
+  switch (action.type) {
+    case LEKAR_LIST_REQUEST:
+      return { loading: true };
+
+    case LEKAR_LIST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        lekari: action.payload,
+      };
+
+    case LEKAR_LIST_FAIL:
       return { loading: false, error: action.payload };
 
     default:

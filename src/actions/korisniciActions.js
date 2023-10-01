@@ -12,6 +12,9 @@ import {
   UKLONI_KORISNIKA_REQUEST,
   UKLONI_KORISNIKA_SUCCESS,
   UKLONI_KORISNIKA_FAIL,
+  LEKAR_LIST_REQUEST,
+  LEKAR_LIST_SUCCESS,
+  LEKAR_LIST_FAIL,
 } from "../constants/korisniciConstants";
 import axios from "axios";
 
@@ -42,10 +45,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: KORISNICKI_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -126,6 +126,23 @@ export const ukloniKorisnika = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UKLONI_KORISNIKA_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+export const listaLekara = () => async (dispatch) => {
+  try {
+    dispatch({ type: LEKAR_LIST_REQUEST });
+
+    const { data } = await axios.get(
+      "http://localhost:5000/api/Account/GetAllUsersWithOdeljenjeId"
+    );
+
+    dispatch({ type: LEKAR_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: LEKAR_LIST_FAIL,
       payload: error.response.data,
     });
   }
