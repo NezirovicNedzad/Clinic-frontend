@@ -13,21 +13,14 @@ const NavBar = () => {
   const { userInfo } = korisnickiLogin;
 
   const toNav = () => {
-
-    if(userInfo.role=='Admin')
-    navigate(`/profile-admin`);
-  else if(userInfo.role=='Lekar')
-  navigate("/profile-lekar");
-else if(userInfo.role=="Sestra")
- navigate("/profile-sestrica")
-   
+    if (userInfo.role == "Admin") navigate(`/profile-admin`);
+    else if (userInfo.role == "Lekar") navigate("/profile-lekar");
+    else if (userInfo.role == "Sestra") navigate("/odeljenja-sestra");
   };
 
-  const Nav =(naziv)=>{
-
-    navigate("/"+naziv);
-
-  }
+  const Nav = (naziv) => {
+    navigate("/" + naziv);
+  };
 
   const logoutHandler = () => {
     dispatch(logout());

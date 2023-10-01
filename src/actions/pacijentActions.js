@@ -5,6 +5,9 @@ import {
   PACIJENT_DETAILS_FAIL,
   PACIJENT_DETAILS_REQUEST,
   PACIJENT_DETAILS_SUCCESS,
+  PACIJENT_DODAJ_FAIL,
+  PACIJENT_DODAJ_REQUEST,
+  PACIJENT_DODAJ_SUCCESS,
   PACIJENT_IZABRANI_LIST_FAIL,
   PACIJENT_IZABRANI_LIST_REQUEST,
   PACIJENT_IZABRANI_LIST_SUCCESS,
@@ -112,34 +115,54 @@ export const detailsPatient = (id) => async (dispatch, getState) => {
   }
 };
 
-export const prebaciPacijenta = (idP, idO, idL) => async (dispatch) => {
-  try {
-    dispatch({ type: PACIJENT_PREBACI_REQUEST });
+export const prebaciPacijenta =
+  (idP, idO, idL) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PACIJENT_PREBACI_REQUEST });
+      const {
+        korisnickiLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `http://localhost:5000/api/Pacijent/prebaci/${idP}/${idO}/${idL}`,
+        config
+      );
 
-    const { data } = await axios.post(
-      `http://localhost:5000/api/Pacijent/prebaci/${idP}/${idO}/${idL}`
-    );
+      dispatch({
+        type: PACIJENT_PREBACI_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PACIJENT_PREBACI_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
-    dispatch({
-      type: PACIJENT_PREBACI_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PACIJENT_PREBACI_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-export const deletePacijent = (id) => async (dispatch) => {
+export const deletePacijent = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PACIJENT_DELETE_REQUEST });
 
-    await axios.delete(`http://localhost:5000/api/Pacijent/${id}`);
+    const {
+      korisnickiLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`http://localhost:5000/api/Pacijent/${id}`, config);
 
     dispatch({
       type: PACIJENT_DELETE_SUCCESS,
@@ -154,3 +177,42 @@ export const deletePacijent = (id) => async (dispatch) => {
     });
   }
 };
+
+export const dodajPacijenta =
+  (ime, prezime, jmbg, brojGodina, pol, idLekara, idOdeljenja) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: PACIJENT_DODAJ_REQUEST });
+
+      const {
+        korisnickiLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/Pacijent",
+        {
+          ime,
+          prezime,
+          jmbg,
+          brojGodina,
+          pol,
+          idLekara,
+          idOdeljenja,
+        },
+        config
+      );
+
+      dispatch({ type: PACIJENT_DODAJ_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PACIJENT_DODAJ_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };

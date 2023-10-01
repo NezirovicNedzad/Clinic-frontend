@@ -7,9 +7,15 @@ import Loader from "../../Components/Loader";
 import { listOdeljenja } from "../../actions/odeljenjaActions";
 import { listaLekara } from "../../actions/korisniciActions";
 
-import { FaList, FaUser, FaUserPlus, FaUsers } from "react-icons/fa";
+import {
+  FaHospital,
+  FaList,
+  FaUser,
+  FaUserPlus,
+  FaUsers,
+} from "react-icons/fa";
 
-import adminImage from "../../images/user-gear.png";
+import adminImage from "../../images/nurse.png";
 
 import { dodajPacijenta } from "../../actions/pacijentActions";
 
@@ -42,7 +48,7 @@ export default function DodajPacijenta() {
   const listaLekaraR = useSelector((state) => state.lekariList);
   const { lekari } = listaLekaraR;
 
-  const dodajPacijentaR = useSelector((state) => state.pacijentCreate);
+  const dodajPacijentaR = useSelector((state) => state.dodajPacijenta);
   const { loading, error, success } = dodajPacijentaR;
 
   const dispatch = useDispatch();
@@ -53,6 +59,7 @@ export default function DodajPacijenta() {
     lekari && lekari.filter((korisnik) => korisnik.role === "Lekar");
 
   useEffect(() => {
+    if (userInfo.role !== "Sestra") navigate("not-found");
     dispatch(listaLekara());
 
     if (selectedOdeljenje) {
@@ -103,7 +110,9 @@ export default function DodajPacijenta() {
   const toNav = (naziv) => {
     navigate(`/${naziv}`);
   };
-
+  const toK = () => {
+    navigate(`/odeljenja-sestra/`);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -156,7 +165,11 @@ export default function DodajPacijenta() {
             <Col md={3} className='padding0'>
               <div style={{ height: "100vh" }} className='navAdmin'>
                 <div className='adminImage'>
-                  <Image fluid src={adminImage} />
+                  <Image
+                    fluid
+                    src={adminImage}
+                    style={{ width: "70px", height: "70px" }}
+                  />
                 </div>
                 <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
                 <p>{userInfo.role}</p>
@@ -164,16 +177,9 @@ export default function DodajPacijenta() {
                 <h3>Opcije</h3>
 
                 <ul className='mt-3'>
-                  <li className='navAdminLine'>
-                    <FaUser className='faIcons' />
-                    Profil
-                  </li>
-                  <li
-                    onClick={() => toNav("odeljenja-sestra")}
-                    className='navAdminLine'
-                  >
-                    <FaList className='faIcons' />
-                    Lista odeljenja
+                  <li onClick={() => toK()} className='navAdminLine'>
+                    <FaHospital className='faIcons' />
+                    Klinika
                   </li>
                   <li
                     onClick={() => toNav("dodaj-pacijenta-sestra")}

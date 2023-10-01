@@ -6,10 +6,10 @@ import {
   DetailsOdeljenje,
   listOdeljenja,
 } from "../../actions/odeljenjaActions";
-import { FaList, FaUser, FaUsers } from "react-icons/fa";
+import { FaHospital, FaList, FaUser, FaUsers } from "react-icons/fa";
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import doctorImage from "../../images/lekar.png";
+import doctorImage from "../../images/nurse.png";
 import { useNavigate } from "react-router";
 import Loader from "../../Components/Loader";
 import Message from "../../Components/Message";
@@ -20,6 +20,10 @@ const SestraOdeljenjePage = () => {
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
 
   const { userInfo, success } = korisnickiLogin;
+
+  const toK = () => {
+    navigate(`/odeljenja-sestra/`);
+  };
 
   var object1;
 
@@ -60,7 +64,11 @@ const SestraOdeljenjePage = () => {
           <Col md={3} className='padding0'>
             <div style={{ height: "100vh" }} className='navAdmin'>
               <div className='adminImage'>
-                <Image fluid src={doctorImage} />
+                <Image
+                  fluid
+                  src={doctorImage}
+                  style={{ width: "70px", height: "70px" }}
+                />
               </div>
               <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
               <p>{userInfo.role}</p>
@@ -68,17 +76,11 @@ const SestraOdeljenjePage = () => {
               <h3>Opcije</h3>
 
               <ul className='mt-4'>
-                <li className='navAdminLine'>
-                  <FaUser className='faIcons' />
-                  Profil
+                <li onClick={() => toK()} className='navAdminLine activeNav'>
+                  <FaHospital className='faIcons' />
+                  Klinika
                 </li>
-                <li
-                  onClick={() => toNav("odeljenja-sestra")}
-                  className='navAdminLine activeNav'
-                >
-                  <FaList className='faIcons' />
-                  Lista odeljenja
-                </li>
+
                 <li
                   onClick={() => toNav("dodaj-pacijenta-sestra")}
                   className='navAdminLine'

@@ -18,7 +18,7 @@ import { detailsPatient } from "../../actions/pacijentActions";
 import { listKartona } from "../../actions/kartonActions";
 import SlickReactSlider from "../../Components/SlickReactSlider";
 import Modals from "../../Components/Modals";
-import { FaList } from "react-icons/fa";
+import { FaHospital, FaList } from "react-icons/fa";
 import { PREGLED_CREATE_RESET } from "../../constants/pregledConstants";
 
 const SestraPregledi = () => {
@@ -122,6 +122,13 @@ const SestraPregledi = () => {
             <h3>Opcije</h3>
 
             <ul className='mt-4'>
+              <li
+                onClick={() => toNav("odeljenja-sestra")}
+                className='navAdminLine '
+              >
+                <FaHospital className='faIcons' />
+                Vrati se na kliniku
+              </li>
               <li className='navAdminLine' onClick={toggleDropdownLekari}>
                 Podaci ▼
               </li>
@@ -169,13 +176,6 @@ const SestraPregledi = () => {
                   icon={faAddressCard}
                 />
                 Lista pregleda
-              </li>
-              <li
-                onClick={() => toNav("odeljenja-sestra")}
-                className='navAdminLine'
-              >
-                <FaList className='faIcons' />
-                Lista odeljenja
               </li>
             </ul>
           </div>

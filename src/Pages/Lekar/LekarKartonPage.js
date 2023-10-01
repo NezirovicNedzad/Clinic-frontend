@@ -14,6 +14,7 @@ import {
   faCircleExclamation,
   faDeleteLeft,
   faShare,
+  faNotesMedical,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import doctorImage from "../../images/lekar.png";
@@ -35,6 +36,7 @@ import Modals from "../../Components/Modals";
 import { PREGLED_CREATE_RESET } from "../../constants/pregledConstants";
 
 const LekarKartonPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const params = useParams();
@@ -48,7 +50,7 @@ const LekarKartonPage = () => {
   const { userInfo, success } = korisnickiLogin;
   const pacijentDetails = useSelector((state) => state.pacijentDetails);
 
-  const { loading, error, pacijent, lekar } = pacijentDetails;
+  const { loading, error, pacijent } = pacijentDetails;
 
   const odeljenjaDetail = useSelector((state) => state.odeljenjaDetails);
 
@@ -75,6 +77,16 @@ const LekarKartonPage = () => {
     setShowDropdownLekari(!showDropdownLekari);
   };
 
+  const toNav = (link) => {
+    navigate(`/profile-lekar/${link}/${idO}/${idPacijent}`);
+  };
+
+  const toNav2 = () => {
+    navigate(`/profile-lekar/${idO}/${idPacijent}`);
+  };
+  const toNav3 = () => {
+    navigate(`/profile-lekar/napomene/${idO}/${idPacijent}`);
+  };
   const customSort = (a, b) => {
     const dateA = new Date(a.vremePregleda);
     const dateB = new Date(b.vremePregleda);
@@ -89,7 +101,7 @@ const LekarKartonPage = () => {
     if (pacijent.id !== idPacijent) {
       dispatch(detailsPatient(idPacijent));
 
-      setIdDok(lekar.id);
+      setIdDok(pacijent.idLekara);
     }
     if (successCreate) {
       setTimeout(() => dispatch({ type: PREGLED_CREATE_RESET }), 1700);
@@ -113,23 +125,7 @@ const LekarKartonPage = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Image
-                    style={{ marginLeft: "50px" }}
-                    fluid
-                    src={pacientImage}
-                  />
-                </div>
-                <div style={{ flex: "1" }}>
-                  {" "}
-                  {userInfo.username === lekar.userName && (
-                    <button className='otpusti'>
-                      <FontAwesomeIcon
-                        style={{ marginRight: "0.6rem", color: "red" }}
-                        icon={faDeleteLeft}
-                        size='lg'
-                      />
-                    </button>
-                  )}
+                  <Image fluid src={pacientImage} />
                 </div>
               </div>
             </div>
@@ -141,15 +137,19 @@ const LekarKartonPage = () => {
             <h3>Opcije</h3>
 
             <ul className='mt-4'>
-              <li
-                style={{ marginLeft: "1rem" }}
-                className='navAdminLine'
-                onClick={toggleDropdownLekari}
-              >
+              <li onClick={() => toNav2()} className='navAdminLine activeNav'>
+                Karton{" "}
+                <FontAwesomeIcon
+                  style={{ marginRight: "0.6rem" }}
+                  icon={faNotesMedical}
+                  size='lg'
+                />
+              </li>
+              <li className='navAdminLine' onClick={toggleDropdownLekari}>
                 Podaci ▼
               </li>
               {showDropdownLekari && (
-                <ul style={{ marginLeft: "50px" }}>
+                <ul>
                   <li className='navAdminLine'>
                     <h5 style={{ padding: "0.5rem" }}>
                       <span style={{ color: "#43b9dc" }}>JMBG:</span>
@@ -176,7 +176,7 @@ const LekarKartonPage = () => {
                   </li>
                 </ul>
               )}
-              <li style={{ marginLeft: "1rem", marginBottom: "0.5rem" }}>
+              <li onClick={() => toNav3()} style={{ marginBottom: "0.5rem" }}>
                 Napomene{" "}
                 <FontAwesomeIcon
                   style={{ marginRight: "0.6rem" }}
@@ -184,11 +184,12 @@ const LekarKartonPage = () => {
                 />
               </li>
 
-              {userInfo.id === lekar.id ? (
+              {userInfo.id == pacijent.idLekara ? (
                 <>
                   {" "}
                   <li
-                    style={{ marginBottom: "0.5rem", marginLeft: "1rem" }}
+                    onClick={() => toNav("pacijent-istorija")}
+                    style={{ marginBottom: "0.5rem" }}
                     className='navAdminLine'
                   >
                     Istorija pacijenta{" "}
@@ -197,7 +198,10 @@ const LekarKartonPage = () => {
                       icon={faBook}
                     />
                   </li>
-                  <li style={{ marginLeft: "1rem" }}>
+                  <li
+                    className='navAdminLine'
+                    onClick={() => toNav("pacijent-premesti")}
+                  >
                     Premesti pacijenta{" "}
                     <FontAwesomeIcon
                       style={{ marginRight: "0.6rem" }}
@@ -205,15 +209,21 @@ const LekarKartonPage = () => {
                     />
                   </li>
                   <h4 style={{ paddingTop: "1.4rem" }}>
-                    <span style={{ color: "#43b9dc" }}>Izabrani lekar:</span>
+                    <span style={{ color: "#43b9dc" }}>
+                      Izabrani lekar na klinici:
+                    </span>
                   </h4>
                   <h4>
-                    {lekar.ime} {lekar.prezime}
+                    {pacijent.imeLekara} {pacijent.prezimeLekara}
                   </h4>
                 </>
               ) : userInfo.id === lekarK.id ? (
                 <>
-                  <li style={{ marginLeft: "1rem" }}>
+                  <li
+                    className='navAdminLine'
+                    onClick={() => toNav("pacijent-premesti")}
+                    style={{ marginLeft: "1rem" }}
+                  >
                     Premesti pacijenta{" "}
                     <FontAwesomeIcon
                       style={{ marginRight: "0.6rem" }}
@@ -221,30 +231,44 @@ const LekarKartonPage = () => {
                     />
                   </li>
                   <h4 style={{ paddingTop: "1.4rem" }}>
-                    <span style={{ color: "#43b9dc" }}>Izabrani lekar:</span>
+                    <span style={{ color: "#43b9dc" }}>
+                      Izabrani lekar na klinici:
+                    </span>
                   </h4>
                   <h4>
-                    {lekar.ime} {lekar.prezime}
+                    {pacijent.imeLekara} {pacijent.prezimeLekara}
                   </h4>
                 </>
               ) : (
-                <></>
+                <>
+                  <h4 style={{ paddingTop: "1.4rem" }}>
+                    <span style={{ color: "#43b9dc" }}>
+                      Izabrani lekar na klinici:
+                    </span>
+                  </h4>
+                  <h4>
+                    {pacijent.imeLekara} {pacijent.prezimeLekara}
+                  </h4>
+                </>
               )}
             </ul>
           </div>
         </Col>
         <Col md={9}>
-          <h3 style={{ textAlign: "center", padding: "1.2rem" }}>
+          <h3 style={{ textAlign: "center", padding: "0.7rem" }}>
             {" "}
             Obavljeni pregledi
           </h3>
+
+          <p style={{ float: "right" }}>
+            Izabrani lekar na odeljenju {lekarK.ime} {lekarK.prezime}
+          </p>
 
           <Container
             style={{
               display: "flex",
               justifyContent: "center",
               padding: "1rem",
-              height: "65vh",
             }}
           >
             {loadingK ? (

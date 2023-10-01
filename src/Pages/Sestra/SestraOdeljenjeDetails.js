@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DetailsOdeljenje } from "../../actions/odeljenjaActions";
 import {
   FaAddressCard,
+  FaHospital,
   FaList,
   FaPowerOff,
   FaUser,
@@ -14,7 +15,7 @@ import {
   faHospitalUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import doctorImage from "../../images/lekar.png";
+import doctorImage from "../../images/nurse.png";
 import adminImage from "../../images/user-gear.png";
 import krevetImage from "../../images/krevet.png";
 import users from "../../images/group.png";
@@ -25,7 +26,9 @@ import "../../styles/adminProfilePage.css";
 
 const SestraOdeljenjeDetails = () => {
   const korisnickiLogin = useSelector((state) => state.korisnickiLogin);
-
+  const toK = () => {
+    navigate(`/odeljenja-sestra/`);
+  };
   const { userInfo, success } = korisnickiLogin;
   const params = useParams();
 
@@ -43,6 +46,10 @@ const SestraOdeljenjeDetails = () => {
     (state) => state.pacijentiListReducer
   );
   const { loading: loadingP, error: errorP, pacijenti } = pacijentiListOdeljena;
+
+  const toNav = (naziv) => {
+    navigate(`/${naziv}`);
+  };
 
   const object1 = Array(odeljenje.brojKreveta).fill();
   useEffect(() => {
@@ -65,7 +72,11 @@ const SestraOdeljenjeDetails = () => {
           <Col md={3} className='padding0'>
             <div className='navAdmin'>
               <div className='adminImage'>
-                <Image fluid src={doctorImage} />
+                <Image
+                  fluid
+                  src={doctorImage}
+                  style={{ width: "70px", height: "70px" }}
+                />
               </div>
               <h4>{userInfo.ime + " " + userInfo.prezime}</h4>
               <p>{userInfo.role}</p>
@@ -73,13 +84,16 @@ const SestraOdeljenjeDetails = () => {
               <h3>Opcije</h3>
 
               <ul className='mt-4'>
-                <li className='navAdminLine'>
-                  <FaUser className='faIcons' />
-                  Profil
+                <li onClick={() => toK()} className='navAdminLine activeNav'>
+                  <FaHospital className='faIcons' />
+                  Klinika
                 </li>
-                <li className='navAdminLine activeNav'>
-                  <FaList className='faIcons' />
-                  Lista odeljenja
+                <li
+                  onClick={() => toNav("dodaj-pacijenta-sestra")}
+                  className='navAdminLine'
+                >
+                  <FaUsers className='faIcons' />
+                  Dodaj pacijenta
                 </li>
               </ul>
             </div>
@@ -99,31 +113,6 @@ const SestraOdeljenjeDetails = () => {
               </h3>
 
               <Container style={{ display: "flex", flexWrap: "wrap" }}>
-                {object1.map((contact, index) => (
-                  <>
-                    {index <
-                      odeljenje.brojKreveta - odeljenje.brojPacijenata && (
-                      <Container
-                        className='krevet'
-                        style={{
-                          width: "8rem",
-                          margin: "15px 10px",
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Image
-                          style={{ width: "100%", background: "blue" }}
-                          src={krevetImage}
-                        />
-
-                        <p style={{ color: "black", textAlign: "center" }}>
-                          {index + 1}
-                        </p>
-                      </Container>
-                    )}
-                  </>
-                ))}
-
                 {pacijenti.map((pacijent, index) =>
                   odeljenje.brojPacijenata > 0 ? (
                     <Container
@@ -146,11 +135,7 @@ const SestraOdeljenjeDetails = () => {
                           fontSize: "13px",
                         }}
                       >
-                        {index +
-                          1 +
-                          odeljenje.brojKreveta -
-                          odeljenje.brojPacijenata}{" "}
-                        {pacijent.prezime}
+                        {index + 1} {pacijent.prezime}
                       </p>
                       <p
                         style={{
@@ -189,6 +174,31 @@ const SestraOdeljenjeDetails = () => {
                     <></>
                   )
                 )}
+
+                {object1.map((contact, index) => (
+                  <>
+                    {index <
+                      odeljenje.brojKreveta - odeljenje.brojPacijenata && (
+                      <Container
+                        className='krevet'
+                        style={{
+                          width: "8rem",
+                          margin: "15px 10px",
+                          backgroundColor: "white",
+                        }}
+                      >
+                        <Image
+                          style={{ width: "100%", background: "blue" }}
+                          src={krevetImage}
+                        />
+
+                        <p style={{ color: "black", textAlign: "center" }}>
+                          {index + pacijenti.length + 1}
+                        </p>
+                      </Container>
+                    )}
+                  </>
+                ))}
               </Container>
             </Container>
           </Col>

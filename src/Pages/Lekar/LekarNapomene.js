@@ -9,6 +9,7 @@ import {
   faDeleteLeft,
   faShare,
   faAddressCard,
+  faNotesMedical,
 } from "@fortawesome/free-solid-svg-icons";
 import { FaHospital, FaList, FaUserNurse } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,10 +22,10 @@ import "../../styles/karton.css";
 import { detailsPatient } from "../../actions/pacijentActions";
 import { listKartona } from "../../actions/kartonActions";
 import SliderNapomena from "../Sestra/SliderNapomena";
-import NapomenaModal from "./NapomenaModal";
+import NapomenaModal from "../Sestra/NapomenaModal";
 import { NAPOMENA_CREATE_RESET } from "../../constants/napomeneConstants";
 
-const SestraKartonPage = () => {
+const LekarNapomene = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
@@ -67,6 +68,16 @@ const SestraKartonPage = () => {
 
   const toggleDropdownLekari = () => {
     setShowDropdownLekari(!showDropdownLekari);
+  };
+  const toNav4 = () => {
+    navigate(`/profile-lekar/${idO}/${idPacijent}`);
+  };
+  const toNa3 = (link) => {
+    navigate(`/profile-lekar/${link}/${idO}/${idPacijent}`);
+  };
+
+  const toNav2 = () => {
+    navigate(`/profile-lekar/${idO}/${idPacijent}`);
   };
 
   const customSort = (a, b) => {
@@ -114,23 +125,7 @@ const SestraKartonPage = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Image
-                    style={{ marginLeft: "50px" }}
-                    fluid
-                    src={pacientImage}
-                  />
-                </div>
-                <div style={{ flex: "1" }}>
-                  {" "}
-                  {userInfo.username === pacijent.usernameLekara && (
-                    <button className='otpusti'>
-                      <FontAwesomeIcon
-                        style={{ marginRight: "0.6rem", color: "red" }}
-                        icon={faDeleteLeft}
-                        size='lg'
-                      />
-                    </button>
-                  )}
+                  <Image fluid src={pacientImage} />
                 </div>
               </div>
             </div>
@@ -142,12 +137,13 @@ const SestraKartonPage = () => {
             <h3>Opcije</h3>
 
             <ul className='mt-4'>
-              <li
-                onClick={() => toNav("odeljenja-sestra")}
-                className='navAdminLine '
-              >
-                <FaHospital className='faIcons' />
-                Vrati se na kliniku
+              <li onClick={() => toNav2()} className='navAdminLine '>
+                Karton{" "}
+                <FontAwesomeIcon
+                  style={{ marginRight: "0.6rem" }}
+                  icon={faNotesMedical}
+                  size='lg'
+                />{" "}
               </li>
 
               <li className='navAdminLine' onClick={toggleDropdownLekari}>
@@ -183,28 +179,19 @@ const SestraKartonPage = () => {
               )}
 
               <li className='navAdminLine activeNav'>
+                Napomene{" "}
                 <FontAwesomeIcon
                   style={{ marginRight: "0.6rem" }}
                   icon={faCircleExclamation}
                 />
-                Napomene{" "}
-              </li>
-              <li
-                onClick={() => toKarton(pacijent.id)}
-                className='navAdminLine'
-              >
-                <FontAwesomeIcon
-                  style={{ marginRight: "0.6rem" }}
-                  icon={faAddressCard}
-                />
-                Lista pregleda
               </li>
 
               {userInfo.id === pacijent.idLekara ? (
                 <>
                   {" "}
                   <li
-                    style={{ marginBottom: "0.5rem", marginLeft: "1rem" }}
+                    onClick={() => toNa3("pacijent-istorija")}
+                    style={{ marginBottom: "0.5rem" }}
                     className='navAdminLine'
                   >
                     Istorija pacijenta{" "}
@@ -213,7 +200,7 @@ const SestraKartonPage = () => {
                       icon={faBook}
                     />
                   </li>
-                  <li style={{ marginLeft: "1rem" }}>
+                  <li onClick={() => toNa3("pacijent-premesti")}>
                     Premesti pacijenta{" "}
                     <FontAwesomeIcon
                       style={{ marginRight: "0.6rem" }}
@@ -224,12 +211,15 @@ const SestraKartonPage = () => {
                     <span style={{ color: "#43b9dc" }}>Izabrani lekar:</span>
                   </h4>
                   <h4>
-                    {lekar.ime} {lekar.prezime}
+                    {pacijent.imeLekara} {pacijent.prezimeLekara}
                   </h4>
                 </>
               ) : userInfo.id === lekarK.id ? (
                 <>
-                  <li style={{ marginLeft: "1rem" }}>
+                  <li
+                    onClick={() => toNa3("pacijent-premesti")}
+                    style={{ marginLeft: "1rem" }}
+                  >
                     Premesti pacijenta{" "}
                     <FontAwesomeIcon
                       style={{ marginRight: "0.6rem" }}
@@ -284,32 +274,6 @@ const SestraKartonPage = () => {
               />
             ) : null}
             <div style={{ flex: "1" }}> </div>
-            {userInfo.odeljenjeId === odeljenje.id ? (
-              <div style={{ flex: "1" }}>
-                <Button
-                  onClick={() => {
-                    setOpenModal(true);
-                  }}
-                  style={{
-                    backgroundColor: "#43b9dc",
-                    marginTop: "1rem",
-                    float: "right",
-                    marginRight: "4rem",
-                  }}
-                >
-                  Dodaj napomenu{" "}
-                  <FontAwesomeIcon
-                    style={{ marginRight: "0.6rem" }}
-                    icon={faPlus}
-                  />
-                </Button>
-              </div>
-            ) : (
-              <p style={{ marginTop: "1rem" }}>
-                Trenutno ne radite na ovom odeljenju i ne mozete dodati novu
-                napomenu!
-              </p>
-            )}
           </div>
         </Col>
       </Row>
@@ -317,4 +281,4 @@ const SestraKartonPage = () => {
   );
 };
 
-export default SestraKartonPage;
+export default LekarNapomene;

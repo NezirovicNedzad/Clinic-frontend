@@ -31,6 +31,7 @@ import LekarIstorijaPacijenta from "./Pages/Lekar/LekarIstorijaPacijenta";
 import LekarPremestiPacijenta from "./Pages/Lekar/LekarPremestiPacijenta";
 import LekarKartonArhivirani from "./Pages/Lekar/LekarKartonArhivirani";
 import LekarPacijenti from "./Pages/Lekar/LekarPacijenti";
+import LekarNapomene from "./Pages/Lekar/LekarNapomene";
 
 function App() {
   return (
@@ -86,6 +87,10 @@ function App() {
         <Route
           path='/odeljenja-sestra/:id/:pacijentId'
           element={<SestraKartonPage />}
+        />
+        <Route
+          path='/profile-lekar/napomene/:id/:pacijentId'
+          element={<LekarNapomene />}
         />
 
         <Route

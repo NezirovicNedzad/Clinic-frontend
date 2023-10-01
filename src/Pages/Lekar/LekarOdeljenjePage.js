@@ -8,7 +8,8 @@ import {
   FaPowerOff,
   FaUser,
   FaUsers,
-,FaHospital} from "react-icons/fa";
+  FaHospital,
+} from "react-icons/fa";
 import {
   faAddressCard,
   faHospitalUser,
@@ -50,22 +51,19 @@ const LekarOdeljenjePage = () => {
     }
     dispatch(listPacijentOdeljenja(id));
 
-      setBrojKreveta(odeljenje.brojKreveta);
-      
-    },[dispatch, id, odeljenje])
-  
-    const toKarton = (Nid) => {
-      navigate(`/profile-lekar/${id}/${Nid}`);
-    };
-  
-const toK=()=>{
-  navigate(`/profile-lekar/`)
+    setBrojKreveta(odeljenje.brojKreveta);
+  }, [dispatch, id, odeljenje]);
 
-}
-const tol=()=>{
-  navigate(`/profile-lekar/pacijenti`)
+  const toKarton = (Nid) => {
+    navigate(`/profile-lekar/${id}/${Nid}`);
+  };
 
-}
+  const toK = () => {
+    navigate(`/profile-lekar/`);
+  };
+  const tol = () => {
+    navigate(`/profile-lekar/pacijenti`);
+  };
   return (
     <>
       <Container fluid>
@@ -81,73 +79,120 @@ const tol=()=>{
               </p>
               <h3>Opcije</h3>
 
-              <ul>
-                <li onClick={()=>toK()} className="navAdminLine activeNav">
+              <ul className='mt-4'>
+                <li onClick={() => toK()} className='navAdminLine activeNav'>
                   <FaHospital className='faIcons' />
                   Klinika
                 </li>
-               <li onClick={()=>tol()} className="navAdminLine" >
+                <li onClick={() => tol()} className='navAdminLine'>
                   <FaList className='faIcons' />
                   Lista pacijenata
                 </li>
-            
               </ul>
             </div>
           </Col>
-          <Col style={{padding:"1rem"}} md={9}>
-            
-                <Container  style={{background:"#80D0F4",width:"100%",height:"100%",}} >
-                  
-                <h3 style={{textAlign:"center",color:"white",paddingTop:"0.7rem"}}>{odeljenje.naziv}</h3>
-                    
-          <Container style={{display:"flex",flexWrap:"wrap"}} >
+          <Col style={{ padding: "1rem" }} md={9}>
+            <Container
+              style={{ background: "#80D0F4", width: "100%", height: "100%" }}
+            >
+              <h3
+                style={{
+                  textAlign: "center",
+                  color: "white",
+                  paddingTop: "0.7rem",
+                }}
+              >
+                {odeljenje.naziv}
+              </h3>
 
+              <Container style={{ display: "flex", flexWrap: "wrap" }}>
+                {pacijenti.map((pacijent, index) =>
+                  odeljenje.brojPacijenata > 0 ? (
+                    <Container
+                      className='krevet'
+                      style={{
+                        width: "8rem",
+                        margin: "15px 10px",
+                        backgroundColor: "green",
+                      }}
+                    >
+                      <Image
+                        style={{ width: "100%", background: "blue" }}
+                        src={krevetImage}
+                      />
 
-          {pacijenti.map((pacijent,index)  =>  (
+                      <p
+                        style={{
+                          color: "white",
+                          textAlign: "center",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {index + 1} {pacijent.prezime}
+                      </p>
+                      <p
+                        style={{
+                          color: "white",
+                          textAlign: "center",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {pacijent.jmbg}
+                      </p>
 
-odeljenje.brojPacijenata>0  ?
-
-  <Container  className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"green"}}>
-    
-   
-  <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
-
-
- < p style={{color:"white",textAlign:"center",fontSize:"13px"}}>{index+1} {pacijent.prezime}</p>
- < p style={{color:"white",textAlign:"center",fontSize:"12px"}}>{pacijent.jmbg}</p>
-   
-<Container style={{display:"flex",justifyContent:"center"}}>   <button onClick={()=>toKarton(pacijent.id)}  style={{fontSize:"14px",padding:"5px",marginBottom:"10px",background:"black",color:"white",display:"flex"}}  >Karton<FontAwesomeIcon style={{marginLeft:"5px"}} icon={faHospitalUser} /></button>  </Container>
-</Container> : <></> 
-
-
-
-
-
-  ))}    
-
-
-                {object1.map((contact,index)=>
-          <>
-         
-        
-
-          {index <  odeljenje.brojKreveta-odeljenje.brojPacijenata && 
-          <Container className="krevet"  style={{width:"8rem",margin:"15px 10px",backgroundColor:"white"}}>
-          
-          
-          <Image style={{width:"100%",background:"blue"}} src={krevetImage} />
-       
-          <p style={{color:"black",textAlign:"center"}}>{index+pacijenti.length +1 }</p>
-         </Container>  
-         
- 
-         } 
-               
-                </>        
-
-
-
+                      <Container
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        {" "}
+                        <button
+                          onClick={() => toKarton(pacijent.id)}
+                          style={{
+                            fontSize: "14px",
+                            padding: "5px",
+                            marginBottom: "10px",
+                            background: "black",
+                            color: "white",
+                            display: "flex",
+                          }}
+                        >
+                          Karton
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faHospitalUser}
+                          />
+                        </button>{" "}
+                      </Container>
+                    </Container>
+                  ) : (
+                    <></>
+                  )
                 )}
+
+                {object1.map((contact, index) => (
+                  <>
+                    {index <
+                      odeljenje.brojKreveta - odeljenje.brojPacijenata && (
+                      <Container
+                        className='krevet'
+                        style={{
+                          width: "8rem",
+                          margin: "15px 10px",
+                          backgroundColor: "white",
+                        }}
+                      >
+                        <Image
+                          style={{ width: "100%", background: "blue" }}
+                          src={krevetImage}
+                        />
+
+                        <p style={{ color: "black", textAlign: "center" }}>
+                          {index + pacijenti.length + 1}
+                        </p>
+                      </Container>
+                    )}
+                  </>
+                ))}
+              </Container>
             </Container>
           </Col>
         </Row>
