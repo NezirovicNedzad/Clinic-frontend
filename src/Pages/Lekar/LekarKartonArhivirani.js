@@ -25,7 +25,7 @@ import Modals from '../../Components/Modals';
 import { PREGLED_CREATE_RESET } from '../../constants/pregledConstants';
 
 
-const LekarKartonPage = () => {
+const LekarKartonArhivirani = () => {
 
 
   const navigate=useNavigate();
@@ -137,7 +137,7 @@ dispatch(listKartona(idO,idPacijent));
 
               <ul style={{marginTop:"1rem"}}>
               <li onClick={()=>toNav2()} style={{marginLeft:"1rem"}}
-                  className='navAdminLine activeNav'>
+                  className='navAdminLine '>
                 Karton  <FontAwesomeIcon style={{ marginRight: "0.6rem"}}  icon={faNotesMedical } size='lg' />
                 </li>
               <li style={{marginLeft:"1rem"}}
@@ -168,7 +168,7 @@ dispatch(listKartona(idO,idPacijent));
                   )}
                   <li style={{marginLeft:"1rem",marginBottom:"0.5rem"}}>Napomene <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faCircleExclamation} /></li>
                 
-{userInfo.id==pacijent.idLekara ?<> <li onClick={()=>toNav("pacijent-istorija")} style={{marginBottom:"0.5rem",marginLeft:"1rem"}} className="navAdminLine" >
+{userInfo.id===pacijent.idLekara ?<> <li onClick={()=>toNav("pacijent-istorija")} style={{marginBottom:"0.5rem",marginLeft:"1rem"}} className="navAdminLine" >
 
          Istorija pacijenta  <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faBook} />
             
@@ -196,7 +196,7 @@ dispatch(listKartona(idO,idPacijent));
         <Col md={9}  >
                <h3 style={{textAlign:"center",padding:"0.7rem"}}> Obavljeni pregledi</h3>
 
-    {userInfo.id===lekarK.id && <p style={{float:"right"}}>Vi ste izabrani lekar na odeljenju!</p>}
+    
     <Container style={{display:"flex",justifyContent:"center",padding:"1rem"}}>
 
 {loadingK  ? <Loader/> : pregledi.length==0 ? <><h2 style={{marginBottom:"32rem"}}>Trenutni pacijent nema ni jedan obavljen pregled!</h2>
@@ -212,12 +212,7 @@ dispatch(listKartona(idO,idPacijent));
      
      /> : null}
       <div style={{flex:"1"}}>  </div>
-     {userInfo.odeljenjeId==odeljenje.id ? <div style={{flex:"1"}}><Button onClick={()=>{setOpenModal(true)}} style={{backgroundColor:"#43b9dc",marginTop:"1rem",float:"right",marginRight:"4rem"}}>Dodaj Pregled <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faPlus} /></Button></div> 
-     
-     
-     
-     
- :<p style={{marginTop:"1rem"}}>Trenutno ne radite na ovom odeljenju i ne mozete dodati novi pregled!</p>} 
+    <p style={{marginTop:"1rem"}}>Karton na odeljenju je arhiviran i ne može se menjati!</p> 
     </div>
 
 
@@ -235,4 +230,4 @@ dispatch(listKartona(idO,idPacijent));
   )
 }
 
-export default LekarKartonPage
+export default LekarKartonArhivirani

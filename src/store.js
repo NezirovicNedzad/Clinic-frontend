@@ -18,7 +18,7 @@ import {
   ListaKorisnikaReducers,
   UkloniKorisnikaReducers,
 } from "./reducers/korisnickiReducer";
-import { listPacijentiOdeljenjaReducers, pacijentDetailsReducers } from "./reducers/pacijentiReducer";
+import { deletePacijentReducers, listPacijentiIzabraniReducers, listPacijentiOdeljenjaReducers, pacijentDetailsReducers, pacijentPrebaciReducers } from "./reducers/pacijentiReducer";
 import { kartoniDetailsReducers, kartoniPacijentducers } from "./reducers/kartoniReducers";
 import {  pregledCreateReducers } from "./reducers/preglediReducers";
 
@@ -34,9 +34,12 @@ const reducer = combineReducers({
   korisnickiLogin: KorisnickiLoginReducers,
   pacijentiListReducer: listPacijentiOdeljenjaReducers,
   pacijentDetails:pacijentDetailsReducers,
+  pacijentPrebaci:pacijentPrebaciReducers,
+  pacijentIzabrani:listPacijentiIzabraniReducers,
+  pacijentDelete:deletePacijentReducers,
   kartoniList:kartoniDetailsReducers,
   kartoniPacijent:kartoniPacijentducers,
-  pregledCreate:pregledCreateReducers
+  pregledCreate:pregledCreateReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

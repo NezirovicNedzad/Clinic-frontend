@@ -3,8 +3,8 @@ import React,{useState,useEffect} from 'react'
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { DetailsOdeljenje,listOdeljenja } from "../../actions/odeljenjaActions";
-import { FaAddressCard, FaList, FaPowerOff, FaUser, FaUsers } from "react-icons/fa";
-import { faAddressCard,faHospitalUser} from "@fortawesome/free-solid-svg-icons";
+import { FaAddressCard, FaList, FaPowerOff, FaUser, FaUsers,FaHospital } from "react-icons/fa";
+import { faAddressCard,faHospitalUser,faHospital} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import doctorImage from "../../images/lekar.png";
 import { useNavigate } from 'react-router';
@@ -12,6 +12,7 @@ import krevetImage from "../../images/krevet.png"
 import Loader from '../../Components/Loader';
 import Message from '../../Components/Message';
 import "../../styles/lekarProfile.css";
+import { PACIJENT_PREBACI_RESET } from '../../constants/pacijentConstants';
 const LekarProfilePage = () => {
 
   const navigate=useNavigate();  
@@ -33,14 +34,30 @@ const LekarProfilePage = () => {
   
   
 
+  const pacijentPrebaci=useSelector((state)=>state.pacijentPrebaci);
+  const{loading:loadingPrebaci,error:errorPrebaci,success:successPrebaci}=pacijentPrebaci;
     useEffect(()=>{
   
   
+
+
+      if(successPrebaci)
+      {
+
+        setTimeout(()=>dispatch({type:PACIJENT_PREBACI_RESET}),2000)
+      }
       dispatch(DetailsOdeljenje(userInfo.odeljenjeId));
       dispatch(listOdeljenja());
       
-    },[])
-  
+    },[successPrebaci])
+    const toK=()=>{
+      navigate(`/profile-lekar/`)
+    
+    }
+    const tol=()=>{
+      navigate(`/profile-lekar/pacijenti`)
+    
+    }  
    
 const selectedOdeljenje = (id)=>{
 
@@ -64,18 +81,15 @@ navigate(`/profile-lekar/${id}`)
               <h3>Opcije</h3>
 
               <ul>
-                <li className="navAdminLine activeNav">
-                  <FaUser className='faIcons' />
-                  Profil
+                <li onClick={()=>toK()} className="navAdminLine activeNav">
+                  <FaHospital className='faIcons' />
+                  Klinika
                 </li>
-               <li className="navAdminLine" >
+               <li onClick={()=>tol()} className="navAdminLine" >
                   <FaList className='faIcons' />
                   Lista pacijenata
                 </li>
-                <li className="navAdminLine" >
-                <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faAddressCard} />
-                  Lista pregleda
-                </li>
+               
               </ul>
             </div>
           </Col>
@@ -84,17 +98,18 @@ navigate(`/profile-lekar/${id}`)
                 <Container  style={{width:"100%",height:"100%",}} >
                   
                 <h3 style={{textAlign:"center",paddingTop:"0.7rem"}}>Odeljenja</h3>
-                    
+                {successPrebaci && <Message variant={"success"} >Uspešno ste prebacili pacijenta!</Message>}                     
           <Container className='novi' >
           {loading && <Loader ></Loader>}  
-   {error && <Message>Greska</Message>}   
+   {error && <Message>Greska</Message>}
+  
           {odeljenja.map((odeljenje,i)=>(
         
               odeljenje.brojKreveta<=15 ? <>
               
               <button  onClick={() => selectedOdeljenje(odeljenje.id)} className='dugme1'>
 <Container  style={{backgroundColor: `${boje[i]}`,width:"22rem",padding:"10px",
-   height:"10.5rem",
+   height:"10.5         rem",
     textAlign:"center",
     borderRadius:"0.7rem"
    }} >

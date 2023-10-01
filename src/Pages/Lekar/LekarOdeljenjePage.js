@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { DetailsOdeljenje } from "../../actions/odeljenjaActions";
-import { FaAddressCard, FaList, FaPowerOff, FaUser, FaUsers } from "react-icons/fa";
+import { FaAddressCard, FaList, FaPowerOff, FaUser, FaUsers ,FaHospital} from "react-icons/fa";
 import { faAddressCard,faHospitalUser} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import doctorImage from "../../images/lekar.png";
@@ -51,8 +51,14 @@ const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
       navigate(`/profile-lekar/${id}/${Nid}`);
     };
   
+const toK=()=>{
+  navigate(`/profile-lekar/`)
 
+}
+const tol=()=>{
+  navigate(`/profile-lekar/pacijenti`)
 
+}
   return (
     <>
       
@@ -70,18 +76,15 @@ const {loading:loadingP,error:errorP,pacijenti}=pacijentiListOdeljena
               <h3>Opcije</h3>
 
               <ul>
-                <li className="navAdminLine activeNav">
-                  <FaUser className='faIcons' />
-                  Profil
+                <li onClick={()=>toK()} className="navAdminLine activeNav">
+                  <FaHospital className='faIcons' />
+                  Klinika
                 </li>
-               <li className="navAdminLine" >
+               <li onClick={()=>tol()} className="navAdminLine" >
                   <FaList className='faIcons' />
                   Lista pacijenata
                 </li>
-                <li className="navAdminLine" >
-                <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faAddressCard} />
-                  Lista pregleda
-                </li>
+            
               </ul>
             </div>
           </Col>

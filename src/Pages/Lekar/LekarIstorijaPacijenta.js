@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router';
 import { faAddressCard,faBook,faPlus,faCircleExclamation,faDeleteLeft,faShare,faNotesMedical,faXmark,faCheck} from "@fortawesome/free-solid-svg-icons";
 
 import pacientImage from "../../images/user.png"
-import { listKartonaPacijenta } from '../../actions/kartonActions';
+import { listKartona, listKartonaPacijenta } from '../../actions/kartonActions';
 import { detailsPatient } from '../../actions/pacijentActions';
 import Loader from '../../Components/Loader';
 import Message from '../../Components/Message';
@@ -22,7 +22,7 @@ const LekarIstorijaPacijenta = () => {
     const { userInfo, success } = korisnickiLogin;
     const pacijentDetails = useSelector((state) => state.pacijentDetails);
     
-    const{loading,error,pacijent,lekar}=pacijentDetails;
+    const{loading,error,pacijent}=pacijentDetails;
     
     const idPacijent=params.pacijentId
 const idO=params.id;
@@ -65,7 +65,11 @@ const idO=params.id;
 
         navigate(`/profile-lekar/${ido}/${idp}`);
       }
-      
+  
+      const toNav4=(ido,idp,idoa)=>{
+
+        navigate(`/profile-lekar/arhivirani/${ido}/${idp}/${idoa}`);
+      }
       useEffect(()=>{
   
         if (pacijent.id !== idPacijent) {
@@ -73,7 +77,9 @@ const idO=params.id;
         }
 
         dispatch(listKartonaPacijenta(idPacijent));
-      },[dispatch, pacijent, idPacijent,])
+        
+dispatch(listKartona(idO,idPacijent));
+      },[dispatch, pacijent, idPacijent])
       
       
 
@@ -91,7 +97,7 @@ const idO=params.id;
               <div style={{display:"flex"}}>
 
                 <div style={{flex:"10",display:"flex",justifyContent:"center"}}><Image style={{marginLeft:"50px"}} fluid src={pacientImage} /></div>
-                <div style={{flex:"1"}}>   {userInfo.username===lekar.userName &&  <button className='otpusti' ><FontAwesomeIcon style={{ marginRight: "0.6rem",color:"red" }}  icon={faDeleteLeft } size='lg' /></button>}</div> 
+                <div style={{flex:"1"}}>   {userInfo.username===pacijent.usernameLekar &&  <button className='otpusti' ><FontAwesomeIcon style={{ marginRight: "0.6rem",color:"red" }}  icon={faDeleteLeft } size='lg' /></button>}</div> 
               </div>
               
       
@@ -140,7 +146,7 @@ const idO=params.id;
                 )}
                 <li style={{marginLeft:"1rem",marginBottom:"0.5rem"}}>Napomene <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faCircleExclamation} /></li>
               
-{userInfo.id===lekar.id ?<> <li onClick={()=>toNav("pacijent-istorija")} style={{marginLeft:"1rem"}} className="navAdminLine activeNav" >
+{userInfo.id===pacijent.idLekara ?<> <li onClick={()=>toNav("pacijent-istorija")} style={{marginLeft:"1rem"}} className="navAdminLine activeNav" >
 
        Istorija pacijenta  <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faBook} />
           
@@ -148,11 +154,11 @@ const idO=params.id;
               
               <li  className='navAdminLine' onClick={()=>toNav("pacijent-premesti")} style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
               <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar na klinici:</span></h4>
-           <h4 >{lekar.ime} {lekar.prezime}</h4>
+           <h4 >{pacijent.imeLekara} {pacijent.prezimeLekara}</h4>
                </> : userInfo.id===lekarK.id ? <>
                <li  className='navAdminLine' onClick={()=>toNav("pacijent-premesti")} style={{marginLeft:"1rem"}}>Premesti pacijenta <FontAwesomeIcon style={{ marginRight: "0.6rem" }} icon={faShare} /></li>
                <h4 style={{paddingTop:"1.4rem" }}><span style={{color:"#43b9dc"}}>Izabrani lekar na klinici:</span></h4>
-           <h4 >{lekar.ime} {lekar.prezime}</h4>
+           <h4 >{pacijent.imeLekara} {pacijent.prezimeLekara}</h4>
               
               </> : <></>}
             
@@ -185,7 +191,7 @@ const idO=params.id;
                       </thead>
                       <tbody>
                  {kartoni.map(k=>
- k.idOdeljenja===idO && k.idPacijenta===idPacijent ?<tr style={{backgroundColor:"#82d8b0"}}>
+ k.idOdeljenja===idO && k.idPacijenta===idPacijent  ?<tr style={{backgroundColor:"#82d8b0"}}>
 
 
 <td style={{textAlign:"center"}}>{k.nazivOdeljenja}</td>
@@ -200,7 +206,7 @@ const idO=params.id;
  <td style={{textAlign:"center"}}>{k.imeLekara}</td>
  <td style={{textAlign:"center"}}>{k.prezimeLekara}</td>
  <td style={{textAlign:"center"}}><FontAwesomeIcon style={{ marginRight: "0.6rem",color:"red" }}  icon={faXmark } size='lg' /></td>
- <td style={{textAlign:"center"}}><Button onClick={()=>toNav3(k.idOdeljenja,k.idPacijenta)} >Karton</Button></td>
+ <td style={{textAlign:"center"}}><Button onClick={()=>toNav4(k.idOdeljenja,k.idPacijenta,idO)} >Karton</Button></td>
 </tr>
 
 
